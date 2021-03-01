@@ -1,5 +1,373 @@
-<section class="jumbotron text-center" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="header">
     <div class="container">
-       
+
+        <div class="navbar">
+            <div class="logo">
+                <img src="../images/logo.png" width="200px">
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Account</a></li>
+                </ul>
+            </nav>
+            <img src="../images/kosnicka.png" width="30px" height="30px">
+            <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <h1>Welcome to the <br>Fashion Store!</h1>
+                <p>-If you can't stop thinking about it <b>BUY IT</b>-</p>
+                <a href="" class="btn">Shop now &#8594;</a>
+            </div>
+            <div class="col-2">
+                <img src="../images/modeli.png">
+            </div>
+        </div>
     </div>
-</section>
+</div>
+
+<!--------- featured categories ------->
+<div class="categories">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <img src="../images/category1.jpg">
+            </div>
+            <div class="col-3">
+                <img src="../images/category2.jpg">
+            </div>
+            <div class="col-3">
+                <img src="../images/category3.jpg">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--------- featured products ------->
+<div class="small-container">
+    <h2 class="title">Featured Products</h2>
+    <div class="row">
+
+        <div class="col-4">
+            <img src="../images/product1.jpg">
+            <h4>Mock croc crossbody bag</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$55.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product2.jpg">
+            <h4>Checked blazer</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            </div>
+            <p>$125.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product3.jpg">
+            <h4>Pink high-heel shoes</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$75.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product4.jpg">
+            <h4>Long Oxford jumpsuit</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$100.00</p>
+        </div>
+    </div>
+    <h2 class="title">Latest Products</h2>
+    <div class="row">
+
+        <div class="col-4">
+            <img src="../images/product5.jpg">
+            <h4>Patchwork knit cardigan</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$55.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product6.jpg">
+            <h4>Heeled sandals - braid detail</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            </div>
+            <p>$125.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product7.jpg">
+            <h4>Belted coat</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$75.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product8.jpg">
+            <h4>Floral print bow scrunchie</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$100.00</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <img src="../images/product9.jpg">
+            <h4>Set of 6 retro-style rings</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$55.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product10.jpg">
+            <h4>Oversized colourful cardigan</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            </div>
+            <p>$125.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product11.jpg">
+            <h4>Trainers with trims</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$75.00</p>
+        </div>
+
+        <div class="col-4">
+            <img src="../images/product12.jpg">
+            <h4>Denim joggers</h4>
+            <div class="rating">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <p>$100.00</p>
+        </div>
+    </div>
+</div>
+
+<!-------  offer -------->
+<div class="offer">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-2">
+                <img src="../images/offer-img.jpg" class="offer-img">
+
+            </div>
+            <div class="col-2">
+                <p>Exclusively Available on FashionStore</p>
+                <h1>Gathered bucket bag</h1>
+                <small>
+                    A bag carried for everyday items or personal needs. Can be appropriate for many
+                    occasions, from daytime use to evening "special event" use.
+                </small>
+                <a href="" class="btn">Buy Now &#8594;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------------- testimonial ----------->
+<div class="testimonial">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <i class="fa fa-quote-left" ></i>
+                <p>Lorem Ipsum is simply dummy text of the
+                    printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled
+                    it to make a type specimen book.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="../images/user1.jpg" >
+                <h3>John Smith</h3>
+            </div>
+            <div class="col-3">
+                <i class="fa fa-quote-left" ></i>
+                <p>Lorem Ipsum is simply dummy text of the
+                    printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled
+                    it to make a type specimen book.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="../images/user2.jpg" >
+                <h3>Sarah Miller</h3>
+            </div>
+            <div class="col-3">
+                <i class="fa fa-quote-left" ></i>
+                <p>Lorem Ipsum is simply dummy text of the
+                    printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled
+                    it to make a type specimen book.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="../images/user3.jpg" >
+                <h3>Andrew Williams</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------ footer ---------->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and iOS mobile phone.</p>
+                <div class="app-logo">
+                    <img src="../images/playstore.png">
+                    <img src="../images/appstore.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="../images/logo.png" width="150px">
+                <p>Our Purpose Is To Sustainably Make The Pleasure and Benefits of Products Acessible to the Many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="">Coupons</a></li>
+                    <li><a href="">Blog Post</a></li>
+                    <li><a href="">Return Policy</a></li>
+                    <li><a href="">Join Affiliate</a></li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/">Facebook</a></li>
+                    <li><a href="https://twitter.com/?lang=en">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2021 - Fashion Store &#169;</p>
+    </div>
+</div>
+
+<!------------------ js for toggle menu ------>
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        }
+        else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+
+</script>
+
+</body>
+</html>
