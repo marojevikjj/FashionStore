@@ -3,16 +3,16 @@ package onlineshopapp.fashionstore.service.impl;
 import onlineshopapp.fashionstore.model.PasswordResetToken;
 import onlineshopapp.fashionstore.model.User;
 import onlineshopapp.fashionstore.model.enumerations.Role;
-import onlineshopapp.fashionstore.model.exceptions.InvalidUsernameOrPasswordException;
-import onlineshopapp.fashionstore.model.exceptions.PasswordsDoNotMatchException;
-import onlineshopapp.fashionstore.model.exceptions.UsernameAlreadyExistsException;
+import onlineshopapp.fashionstore.model.exceptions.*;
 import onlineshopapp.fashionstore.repository.UserRepository;
 import onlineshopapp.fashionstore.service.UserService;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
 import java.util.Optional;
 
 @Service
@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService {
             throw new PasswordsDoNotMatchException();
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
+        if(this.userRepository.findByEmailIgnoreCase(email).isPresent())
+            throw new EmailAlreadyExistsException(email);
+        if(!EmailValidator.getInstance().isValid(email)) {
+            throw new InvalidEmailException();
+        }
+
         User user = new User(name,username,passwordEncoder.encode(password),role,email);
         return userRepository.save(user);
     }
