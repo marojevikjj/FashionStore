@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20ac6892-f7d5-4f96-8971-001768d0f043" name="Default Changelist" comment="" />
+    <list default="true" id="20ac6892-f7d5-4f96-8971-001768d0f043" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/WebProgramming_Project/src/main/java/onlineshopapp/fashionstore/web/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebProgramming_Project/src/main/java/onlineshopapp/fashionstore/web/controller/RegisterController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,6 +39,7 @@
       <option name="presentableId" value="Default" />
       <updated>1614443424882</updated>
       <workItem from="1614443427212" duration="13000" />
+      <workItem from="1615628901054" duration="15000" />
     </task>
     <servers />
   </component>

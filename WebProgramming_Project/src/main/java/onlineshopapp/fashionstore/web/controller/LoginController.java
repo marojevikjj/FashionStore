@@ -29,7 +29,7 @@ public class LoginController {
     @GetMapping
     public String getLoginPage(Model model) {
         model.addAttribute("bodyContent", "login");
-        return "login";
+        return "account";
     }
 
     @PostMapping

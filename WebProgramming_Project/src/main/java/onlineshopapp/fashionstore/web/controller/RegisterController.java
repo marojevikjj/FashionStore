@@ -4,10 +4,10 @@ import onlineshopapp.fashionstore.model.ConfirmationToken;
 import onlineshopapp.fashionstore.model.User;
 import onlineshopapp.fashionstore.model.enumerations.Role;
 
+import onlineshopapp.fashionstore.model.exceptions.*;
 import onlineshopapp.fashionstore.service.ConfirmationTokenService;
 import onlineshopapp.fashionstore.service.EmailService;
 import onlineshopapp.fashionstore.service.UserService;
-
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
@@ -38,28 +38,22 @@ public class RegisterController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        model.addAttribute("bodyContent","register");
         return "register";
     }
 
     @PostMapping
-    public ModelAndView register(@RequestParam String username,
+    public String register(@RequestParam String username,
                            @RequestParam String password,
                            @RequestParam String repeatedPassword,
                            @RequestParam String name,
                            @RequestParam String email,
-                           @RequestParam Role role,
-                           ModelAndView modelAndView) {
-//        User existingUser = userService.findByEmail(email);
-//        if(existingUser != null)
-//        {
-//            modelAndView.addObject("message","This email already exists!");
-//            modelAndView.setViewName("error");
-//        }
-//        else {
+                           @RequestParam(required = false) Role role,
+                           Model model) {
+        if(role==null) {
+            role = Role.ROLE_USER;
+        }
+        try {
             User user = this.userService.register(name, username,password,repeatedPassword,role,email);
-
-
             ConfirmationToken confirmationToken = new ConfirmationToken(user);
 
             this.confirmationTokenService.save(confirmationToken);
@@ -73,17 +67,14 @@ public class RegisterController {
 
             emailSenderService.sendEmail(mailMessage);
 
-            modelAndView.addObject("emailId", user.getEmail());
 
-            modelAndView.setViewName("successfulRegistration");
-//        }
-        return modelAndView;
-//        try{
-//            this.userService.register(name, username,password,repeatedPassword,role,email);
-//            return "redirect:/login";
-//        } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
-//            return "redirect:/register?error=" + exception.getMessage();
-//        }
+            model.addAttribute("emailId", user.getEmail());
+
+            return "successfulRegistration";
+        }
+        catch (InvalidArgumentsException | PasswordsDoNotMatchException | UsernameAlreadyExistsException | InvalidEmailException | EmailAlreadyExistsException exception) {
+            return "redirect:/register?error="+ exception.getMessage();
+        }
     }
 
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
@@ -93,6 +84,7 @@ public class RegisterController {
 
         if(token != null)
         {
+            System.out.println("razlicno of null");
             User user = userService.findByEmail(token.getUser().getEmail());
             user.setEnabled(true);
             this.userService.save(user);
@@ -100,6 +92,7 @@ public class RegisterController {
         }
         else
         {
+            System.out.println("here");
             modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
         }

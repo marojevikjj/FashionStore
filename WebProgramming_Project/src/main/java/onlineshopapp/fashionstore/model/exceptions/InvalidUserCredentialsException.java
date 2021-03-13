@@ -3,7 +3,7 @@ package onlineshopapp.fashionstore.model.exceptions;
 public class InvalidUserCredentialsException extends RuntimeException {
 
     public InvalidUserCredentialsException() {
-        super("Invalid user credentials exception");
+        super("The username or password does not match our records!");
     }
 }
 
