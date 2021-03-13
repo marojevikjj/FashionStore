@@ -62,10 +62,10 @@
             <div class="col-2">
                 <div class="form-container">
                     <div class="form-btn">
-                        <span>Register</span>
+                        <span>Create Account</span>
                         <hr id="Indicator">
                     </div>
-                    <form id="RegForm" action="/register" method="post">
+                    <form id="RegForm" action="/create-account" method="post">
                         <input type="text"  name="username" class="form-control" placeholder="Username" required=""
                                autofocus="">
                         <input type="text" id="email" name="email" class="form-control" placeholder="Email" required="" autofocus="">
@@ -74,7 +74,21 @@
                                required="">
                         <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control"
                                placeholder="Repeat Password" required="">
-                        <button type="submit" class="btn">Register</button>
+                        <div class="roles" style="display: flex;flex-direction: row">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER" style="height: 10px!important;width: 30px!important;">
+                                <label class="form-check-label" for="ROLE_USER">User</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input style="height: 10px!important;width: 30px!important;" class="form-check-input" name="role"  type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
+                                <label class="form-check-label" for="ROLE_ADMIN">Admin</label>
+                            </div>
+                            <div>
+                                <input style="height: 10px!important;width: 30px!important;" class="form-check-input" name="role"  type="radio" id="ROLE_POSTMAN" value="ROLE_POSTMAN">
+                                <label style="height: 10px!important;width: 30px!important;" class="form-check-label" for="ROLE_POSTMAN">Postman</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn">Create Account</button>
                         <div style="font-size: 12px;color: red;font-style:italic;" th:if="${hasError}" th:text="${error}"></div>
                     </form>
 

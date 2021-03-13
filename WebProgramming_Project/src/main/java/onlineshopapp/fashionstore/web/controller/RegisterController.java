@@ -84,7 +84,7 @@ public class RegisterController {
 
         if(token != null)
         {
-            System.out.println("razlicno of null");
+
             User user = userService.findByEmail(token.getUser().getEmail());
             user.setEnabled(true);
             this.userService.save(user);
@@ -92,7 +92,7 @@ public class RegisterController {
         }
         else
         {
-            System.out.println("here");
+
             modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
         }
