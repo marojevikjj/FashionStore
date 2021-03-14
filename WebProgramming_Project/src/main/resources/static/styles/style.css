@@ -126,7 +126,7 @@ p{
 
 .title{
     text-align: center;
-    margin: 0 auto 80px;
+    margin: 0 auto 40px;
     position: relative;
     line-height: 60px;
     color: #555;
@@ -469,7 +469,7 @@ th:last-child{
 /*------- account-page --------*/
 
 .account-page{
-    padding: 50px 0;
+
 }
 
 .form-container{
@@ -494,14 +494,17 @@ th:last-child{
 }
 
 .form-btn{
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form-container form{
     max-width: 300px;
     padding: 0 20px;
     position: absolute;
-    top: 130px;
+    top: 70px;
     transition: transform 1s;
 }
 
@@ -525,7 +528,7 @@ form .btn:focus{
 }
 
 #LoginForm{
-    left: -300px;
+    margin-top: 60px;
 }
 #RegForm{
     left: 0;
@@ -541,8 +544,6 @@ form a{
     background: #b3017de0;
     height: 3px;
     margin-top: 8px;
-    transform: translateX(100px);
-    transition: transform 1s;
 }
 
 
