@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
     <title>Fashion Store</title>
 
-    <link rel="stylesheet" href="../static/styles/style.css">
+    <link rel="stylesheet"  th:href="@{/styles/style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,7 +42,7 @@
                 <a href="" class="btn">Shop now &#8594;</a>
             </div>
             <div class="col-2">
-                <img src="../static/images/modeli.png">
+                <img src="../images/modeli.png">
             </div>
         </div>
     </div>
@@ -53,13 +53,13 @@
     <div class="small-container">
         <div class="row">
             <div class="col-3">
-                <img src="../static/images/category1.jpg">
+                <img src="../images/category1.jpg">
             </div>
             <div class="col-3">
-                <img src="../static/images/category2.jpg">
+                <img src="../images/category2.jpg">
             </div>
             <div class="col-3">
-                <img src="../static/images/category3.jpg">
+                <img src="../images/category3.jpg">
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
 
     <div class="row">
         <div class="col-4">
-            <img src="../static/images/product1.jpg">
+            <img src="../images/product1.jpg">
             <h4>Mock croc crossbody bag</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product2.jpg">
+            <img src="../images/product2.jpg">
             <h4>Checked blazer</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product3.jpg">
+            <img src="../images/product3.jpg">
             <h4>Pink high-heel shoes</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -111,7 +111,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product4.jpg">
+            <img src="../images/product4.jpg">
             <h4>Long Oxford jumpsuit</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -127,7 +127,7 @@
     <div class="row">
 
         <div class="col-4">
-            <img src="../static/images/product5.jpg">
+            <img src="../images/product5.jpg">
             <h4>Patchwork knit cardigan</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -140,7 +140,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product6.jpg">
+            <img src="../images/product6.jpg">
             <h4>Heeled sandals - braid detail</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -153,7 +153,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product7.jpg">
+            <img src="../images/product7.jpg">
             <h4>Belted coat</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -166,7 +166,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product8.jpg">
+            <img src="../images/product8.jpg">
             <h4>Floral print bow scrunchie</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -181,7 +181,7 @@
 
     <div class="row">
         <div class="col-4">
-            <img src="../static/images/product9.jpg">
+            <img src="../images/product9.jpg">
             <h4>Set of 6 retro-style rings</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -194,7 +194,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product10.jpg">
+            <img src="../images/product10.jpg">
             <h4>Oversized colourful cardigan</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -207,7 +207,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product11.jpg">
+            <img src="../images/product11.jpg">
             <h4>Trainers with trims</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -220,7 +220,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product12.jpg">
+            <img src="../images/product12.jpg">
             <h4>Denim joggers</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -239,7 +239,7 @@
     <div class="small-container">
         <div class="row">
             <div class="col-2">
-                <img src="../static/images/offer-img.jpg" class="offer-img">
+                <img src="../images/offer-img.jpg" class="offer-img">
 
             </div>
             <div class="col-2">
@@ -273,7 +273,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-half-o" aria-hidden="true"></i>
                 </div>
-                <img src="../static/images/user1.jpg" >
+                <img src="../images/user1.jpg" >
                 <h3>John Smith</h3>
             </div>
             <div class="col-3">
@@ -290,7 +290,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-half-o" aria-hidden="true"></i>
                 </div>
-                <img src="../static/images/user2.jpg" >
+                <img src="../images/user2.jpg" >
                 <h3>Sarah Miller</h3>
             </div>
             <div class="col-3">
@@ -307,7 +307,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star-half-o" aria-hidden="true"></i>
                 </div>
-                <img src="../static/images/user3.jpg" >
+                <img src="../images/user3.jpg" >
                 <h3>Andrew Williams</h3>
             </div>
         </div>
@@ -323,12 +323,12 @@
                 <h3>Download Our App</h3>
                 <p>Download App for Android and iOS mobile phone.</p>
                 <div class="app-logo">
-                    <img src="../static/images/playstore.png">
-                    <img src="../static/images/appstore.png">
+                    <img src="../images/playstore.png">
+                    <img src="../images/appstore.png">
                 </div>
             </div>
             <div class="footer-col-2">
-                <img src="../static/images/logo-footer.png" width="150px">
+                <img src="../images/logo-footer.png" width="150px">
                 <p>Our Purpose Is To Sustainably Make The Pleasure and Benefits of Products Acessible to the Many.</p>
             </div>
             <div class="footer-col-3">
