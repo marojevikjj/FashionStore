@@ -12,10 +12,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/products")
-public class ClothesController {
+public class ProductsController {
     private static ClothesService clothesService;
 
-    public ClothesController(ClothesService clothesService) {
+    public ProductsController(ClothesService clothesService) {
         this.clothesService = clothesService;
     }
 
