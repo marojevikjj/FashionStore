@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
     <title>Fashion Store - Product Details</title>
 
-    <link rel="stylesheet" href="../static/styles/style.css">
+    <!--    <link rel="stylesheet" href="../static/styles/style.css">-->
+    <link rel="stylesheet"  th:href="@{/styles/style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,7 +18,7 @@
 
         <div class="navbar">
             <div class="logo">
-                <a href="home.html"><img src="../static/images/logo.png" width="200px"></a>
+                <a href="home.html"><img src="../images/logo.png" width="200px"></a>
             </div>
             <nav>
                 <ul id="MenuItems">
@@ -28,8 +29,8 @@
                     <li><a href="login.html">Account</a></li>
                 </ul>
             </nav>
-            <a href="cart.html"><img src="../static/images/kosnicka.png" width="30px" height="30px"></a>
-            <img src="../static/images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
+            <a href="cart.html"><img src="../images/kosnicka.png" width="30px" height="30px"></a>
+            <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
         </div>
 
     </div>
@@ -39,20 +40,20 @@
 <div class="small-container single-product">
     <div class="row">
         <div class="col-2">
-            <img src="../static/images/product1.jpg" width="100%" id="ProductImg">
+            <img src="../images/product1.jpg" width="100%" id="ProductImg">
 
             <div class="small-img-row">
                 <div class="small-img-col">
-                    <img src="../mages/product1.jpg" width="100%" class="small-img">
+                    <img src="../images/product1.jpg" width="100%" class="small-img">
                 </div>
                 <div class="small-img-col">
-                    <img src="../static/images/additional/product1-1.jpg" width="100%" class="small-img">
+                    <img src="../images/additional/product1-1.jpg" width="100%" class="small-img">
                 </div>
                 <div class="small-img-col">
-                    <img src="../static/images/additional/product1-2.jpg" width="100%" class="small-img">
+                    <img src="../images/additional/product1-2.jpg" width="100%" class="small-img">
                 </div>
                 <div class="small-img-col">
-                    <img src="../static/images/additional/product1-3.jpg" width="100%" class="small-img">
+                    <img src="../images/additional/product1-3.jpg" width="100%" class="small-img">
                 </div>
             </div>
 
@@ -100,7 +101,7 @@
 
     <div class="row">
         <div class="col-4">
-            <img src="../static/images/product1.jpg">
+            <img src="../images/product1.jpg">
             <h4>Mock croc crossbody bag</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -113,7 +114,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product2.jpg">
+            <img src="../images/product2.jpg">
             <h4>Checked blazer</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -126,7 +127,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product3.jpg">
+            <img src="../images/product3.jpg">
             <h4>Pink high-heel shoes</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -139,7 +140,7 @@
         </div>
 
         <div class="col-4">
-            <img src="../static/images/product4.jpg">
+            <img src="../images/product4.jpg">
             <h4>Long Oxford jumpsuit</h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -165,12 +166,12 @@
                 <h3>Download Our App</h3>
                 <p>Download App for Android and iOS mobile phone.</p>
                 <div class="app-logo">
-                    <img src="../static/images/playstore.png">
-                    <img src="../static/images/appstore.png">
+                    <img src="../images/playstore.png">
+                    <img src="../images/appstore.png">
                 </div>
             </div>
             <div class="footer-col-2">
-                <img src="../static/images/logo-footer.png" width="150px">
+                <img src="../images/logo-footer.png" width="150px">
                 <p>Our Purpose Is To Sustainably Make The Pleasure and Benefits of Products Acessible to the Many.</p>
             </div>
             <div class="footer-col-3">
