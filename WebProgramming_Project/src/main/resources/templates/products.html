@@ -46,8 +46,11 @@
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
+                  <li> <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                 </ul>
             </nav>
+
+
 
             <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
         </div>

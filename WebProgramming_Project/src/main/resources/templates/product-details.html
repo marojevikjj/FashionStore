@@ -34,9 +34,10 @@
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
+                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a>
+</li>
                 </ul>
             </nav>
-
             <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
         </div>
 
@@ -66,9 +67,20 @@
 
 
         </div>
+<!--        <form th:method="POST" th:action="">-->
         <div class="col-2">
             <p id="naslovce">Home / Bag</p>
             <h1 th:text="${product.name}"></h1>
+
+            <h4 th:text="${product.price}"></h4>
+            <form th:action="@{'/shoppingCart/add/{id}' (id=${product.getId()})}"
+                  th:method="POST">
+            <select name="size">
+                <option th:value="S" th:text="S"></option>
+                <option th:value="M" th:text="M"></option>
+                <option th:value="L" th:text="L"></option>
+                <option th:value="XL" th:text="XL"></option>
+
             <h4 th:text="'$' + ${product.price}"></h4>
             <select>
                 <option>Select Size</option>
@@ -76,14 +88,21 @@
                 <option>M</option>
                 <option>L</option>
                 <option>XL</option>
+
             </select>
-            <input type="number" min="1" value="1">
-            <a href="" class="btn">Add To Cart</a>
+            <input th:name="quantity" type="number" min="1" th:value="1">
+<!--            <a th:href="@{/shoppingCart/add/{id} (id=${product.id})}" class="btn">Add To Cart</a>-->
+                <button class="btn" type="submit">
+                    <i>Add product to cart</i>
+                </button>
+            </form>
+
 
             <h3>Product Details  <i class="fa fa-indent" aria-hidden="true"></i></h3>
             <br>
             <p th:text="${product.description}"></p>
         </div>
+<!--        </form>-->
     </div>
 </div>
 

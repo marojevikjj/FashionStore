@@ -34,6 +34,8 @@
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
+                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
+
                 </ul>
             </nav>
 
@@ -52,51 +54,30 @@
             <th>Quantity</th>
             <th>Subtotal</th>
         </tr>
-        <tr>
-            <td>
+        <tr th:each="product : ${products}">
+
+            <td >
                 <div class="cart-info">
-                    <img src="../images/product1.jpg">
-                    <div>
-                        <p>Mock croc crossbody bag</p>
-                        <small>Price: $55.00</small>
-                        <br>
-                        <a href="">Delete</a>
-                    </div>
+                    <img th:src="${product.getClothes().getImage()}">
+                        <div>
+                            <p th:text="${product.getClothes().getDescription()}">Mock croc crossbody bag</p>
+<!--                            <small th:text="${product.getQuantity()}"></small>-->
+                            <small th:text="${product.getClothes().getPrice()}"></small>
+                            <br>
+
+                            <form th:method="POST" th:action="@{'/shoppingCart/delete/{id}' (id=${product.getId()})}">
+                                <button class="btn" type="submit">
+                                    <i>Delete</i>
+                                </button>
+                            </form>
+                        </div>
+                    </br>
                 </div>
             </td>
-            <td><input type="number" min="1" value="1"></td>
-            <td>$55.00</td>
+            <td th:text="${product.getQuantity()}"></td>
+            <td th:text="${product.getPrice()}"></td>
         </tr>
-        <tr>
-            <td>
-                <div class="cart-info">
-                    <img src="../images/product2.jpg">
-                    <div>
-                        <p>Checked blazer</p>
-                        <small>Price: $125.00</small>
-                        <br>
-                        <a href="">Delete</a>
-                    </div>
-                </div>
-            </td>
-            <td><input type="number" min="1" value="1"></td>
-            <td>$125.00</td>
-        </tr>
-        <tr>
-            <td>
-                <div class="cart-info">
-                    <img src="../images/product3.jpg">
-                    <div>
-                        <p>Pink high-heel shoes</p>
-                        <small>Price: $75.00</small>
-                        <br>
-                        <a href="">Delete</a>
-                    </div>
-                </div>
-            </td>
-            <td><input type="number" min="1" value="1"></td>
-            <td>$75.00</td>
-        </tr>
+
     </table>
 
     <div class="total-price">
@@ -104,16 +85,23 @@
         <table>
             <tr>
                 <td>Subtotal</td>
-                <td>$255.00</td>
+                <td th:text="${total}"></td>
             </tr>
-            <tr>
-                <td>Enter voucher code:</td>
-                <td><input id="voucher-code" type="text"></td>
-            </tr>
-            <tr>
-                <td>Total</td>
-                <td>$255.00</td>
-            </tr>
+<!--            <tr>-->
+<!--                <form th:action="@{'/shoppingCart/voucherPrice'}">-->
+<!--                    <td>Enter voucher code:</td>-->
+<!--                    <td><input th:name="code" id="voucher-code" type="text"></td>-->
+<!--                    <td>-->
+<!--                    <button class="btn" type="submit">-->
+<!--                        <i>Submit voucher</i>-->
+<!--                    </button>-->
+<!--                    </td>-->
+<!--                </form>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Total price with voucher</td>-->
+<!--                <td th:text="${total}"></td>-->
+<!--            </tr>-->
             <tr>
                 <td></td>
                 <td><button class="btn">BUY</button></td>
