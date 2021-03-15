@@ -1,25 +1,24 @@
 package onlineshopapp.fashionstore.web.controller;
 
-import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.service.ClothesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductsController {
-    private static ClothesService clothesService;
+
+    private final ClothesService clothesService;
 
     public ProductsController(ClothesService clothesService) {
         this.clothesService = clothesService;
     }
 
-    @GetMapping
+  /*  @GetMapping
     public String getProductPage(@RequestParam(required = false) String error, Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
@@ -30,6 +29,21 @@ public class ProductsController {
         model.addAttribute("bodyContent", "products");
         return "products";
     }
+*/
 
+    @GetMapping
+    public String showProducts(@RequestParam(required = false) String nameSearch, @RequestParam(required = false) Long categoryId, Model model) {
+        if (nameSearch == null && categoryId == null) {
+            model.addAttribute("products", this.clothesService.listAllClothes());
+        } /* else {
+            model.addAttribute("products", this.service.listProductsByNameAndCategory(nameSearch, categoryId));
+        } */
+        return "products";
+    }
 
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("product", this.clothesService.findById(id));
+        return "product-details";
+    }
 }
