@@ -63,8 +63,8 @@
 
     <div class="row" >
         <div class="col-4" th:each="p : ${products}">
-            <img th:src="${p.image}">
-            <h4 th:text="${p.name}"></h4>
+            <a th:href="@{/products/{id} (id=${p.getId()})}"><img th:src="${p.image}" ></a>
+            <a th:href="@{/products/{id} (id=${p.getId()})}"><h4 th:text="${p.name}" th:href="@{/product-details}"></h4></a>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>

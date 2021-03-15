@@ -41,10 +41,10 @@
 </div>
 
 <!-----  single product details ------>
-<div class="small-container single-product">
+<div class="small-container single-product" th:action="@{/products/{id} (id=${product.getId()})}" th:method="POST">
     <div class="row">
         <div class="col-2">
-            <img src="../images/product1.jpg" width="100%" id="ProductImg">
+            <img th:src="${product.image}" width="100%" id="ProductImg">
 
             <div class="small-img-row">
                 <div class="small-img-col">
@@ -65,25 +65,21 @@
         </div>
         <div class="col-2">
             <p id="naslovce">Home / Bag</p>
-            <h1>Mock croc crossbody bag</h1>
-            <h4>$55.00</h4>
+            <h1 th:text="${product.name}"></h1>
+            <h4 th:text="${product.price}"></h4>
             <select>
                 <option>Select Size</option>
-                <option>XXL</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
                 <option>XL</option>
-                <option>Large</option>
-                <option>Medium</option>
-                <option>Small</option>
             </select>
             <input type="number" min="1" value="1">
             <a href="" class="btn">Add To Cart</a>
 
             <h3>Product Details  <i class="fa fa-indent" aria-hidden="true"></i></h3>
             <br>
-            <p>No summer wardrobe can be considered complete without a pop of color. While you could buy brightly toned garments,
-                a chic crossbody will make a much more practical choice. No matter if it’s blue, red, pink, or yellow, you’ll be
-                able to partner your colored crossbody with numerous outfits for an
-                instant style boost.</p>
+            <p th:text="${product.description}"></p>
         </div>
     </div>
 </div>
