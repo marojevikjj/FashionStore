@@ -20,7 +20,7 @@ public class ShoppingCart {
     private User user;
 
     @ManyToMany
-    private List<Clothes> clothes;
+    private List<OrderedClothes> orderedClothes;
 
     @Enumerated(EnumType.STRING)
     private ShoppingCartStatus status;
@@ -32,7 +32,7 @@ public class ShoppingCart {
     public ShoppingCart(User user) {
         this.date = LocalDateTime.now();
         this.user = user;
-        this.clothes = new ArrayList<>();
+        this.orderedClothes = new ArrayList<>();
         this.status = ShoppingCartStatus.CREATED;
     }
 }

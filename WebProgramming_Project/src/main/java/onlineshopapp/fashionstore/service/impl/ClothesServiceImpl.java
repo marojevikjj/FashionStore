@@ -7,6 +7,7 @@ import onlineshopapp.fashionstore.service.ClothesService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClothesServiceImpl implements ClothesService {
@@ -39,6 +40,8 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
 
+
+
     @Override
     public Clothes update(Long id, String name, String description, String image, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
         Clothes product = this.findById(id);
@@ -59,5 +62,10 @@ public class ClothesServiceImpl implements ClothesService {
         Clothes product = this.findById(id);
         this.clothesRepository.delete(product);
         return product;
+    }
+
+    @Override
+    public Optional<Clothes> findOptionalById(Long id) {
+        return clothesRepository.findById(id);
     }
 }
