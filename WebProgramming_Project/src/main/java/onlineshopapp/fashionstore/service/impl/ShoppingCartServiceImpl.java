@@ -75,6 +75,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     }
 
+    @Override
+    public void deleteOrderedClothes(ShoppingCart shoppingCart) {
+        shoppingCart.setOrderedClothes(null);
+        this.shoppingCartRepository.save(shoppingCart);
+    }
 
 
 }

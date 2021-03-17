@@ -1,9 +1,14 @@
-//package onlineshopapp.fashionstore.repository;
-//
-//import onlineshopapp.fashionstore.model.Order;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.stereotype.Repository;
-//
-//@Repository
-//public interface OrderRepository extends JpaRepository<Order, Long> {
-//}
+package onlineshopapp.fashionstore.repository;
+
+import onlineshopapp.fashionstore.model.Order;
+import onlineshopapp.fashionstore.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findAllByUser(User user);
+    List<Order> findAllByPostman(User user);
+}

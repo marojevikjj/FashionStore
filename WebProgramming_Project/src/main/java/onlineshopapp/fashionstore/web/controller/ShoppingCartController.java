@@ -27,35 +27,40 @@ public class ShoppingCartController {
 
 
     @GetMapping
-    public String getShoppingCartPage(@RequestParam(required = false) String error,
-                                      HttpServletRequest req,
-                                      Model model){
+    public String getShoppingCartPage(@RequestParam(required = false) String error, HttpServletRequest req, Model model){
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(username);
-        double total = 0.0;
-        for(OrderedClothes c : this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()))
-            total += c.getPrice();
-        model.addAttribute("products", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
-        model.addAttribute("bodycContents", "shoppingCart");
-        model.addAttribute("total", total);
+        if(!this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()).isEmpty())
+        {
+            double total = 0.0;
+            for(OrderedClothes c : this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()))
+                total += c.getPrice();
+            model.addAttribute("products", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
+            model.addAttribute("bodycContents", "shoppingCart");
+            model.addAttribute("total", total);
+        }
+        else{
+            model.addAttribute("empty", null);
+        }
+
         return "cart";
     }
 
 
     @PostMapping("/add/{id}")
-    public String addProductToShoppingCart(@PathVariable Long id,
-                                           @RequestParam String size,
+    public String addProductToShoppingCart(@PathVariable Long id, @RequestParam String size, Model model,
                                            @RequestParam Integer quantity, Authentication authentication){
 
         User user = (User) authentication.getPrincipal();
         Clothes clothes = clothesService.findById(id);
         if((size.equals("S") && clothes.getQuantitySizeS()<quantity) || (size.equals("M") && clothes.getQuantitySizeM()<quantity)
-            || (size.equals("L") && clothes.getQuantitySizeL()<quantity) || (size.equals("XL") && clothes.getQuantitySizeXL()<quantity))
-            return "redirect:/products"; // TUKA TREBA NEKOJ MESSAGE DA E POJAVI
+            || (size.equals("L") && clothes.getQuantitySizeL()<quantity) || (size.equals("XL") && clothes.getQuantitySizeXL()<quantity)){
+            return "redirect:/products?error=Requested quantity is not available at the moment!";
+        }
 
         if(size.equals("S"))
             clothes.setQuantitySizeS(clothes.getQuantitySizeS() - quantity);
@@ -68,6 +73,7 @@ public class ShoppingCartController {
 
         OrderedClothes orderedClothes = new OrderedClothes(clothes, quantity, size, clothes.getPrice()*quantity, user.getId());
         this.shoppingCartService.addProductToShoppingCart(user.getUsername(), orderedClothes);
+
         return "redirect:/shoppingCart";
     }
 
@@ -92,6 +98,7 @@ public class ShoppingCartController {
         oc.remove(orderedClothes);
         shoppingCart.setOrderedClothes(oc);
         orderedClothesService.delete(orderedClothes);
+
         return "redirect:/shoppingCart";
     }
 }

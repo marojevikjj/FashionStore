@@ -12,6 +12,7 @@
 </head>
 <body>
 
+
 <div class="header">
     <div class="container">
 
@@ -23,9 +24,10 @@
                 <ul id="MenuItems">
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
-                    <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
+                    <li><a th:href="@{/orders}"  sec:authorize="isAuthenticated()">My Orders</a></li>
+                    <li><a th:href="@{/postmanOrders}" sec:authorize="isAuthenticated()">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
-                    <li><a th:href="@{/cart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
+                    <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
@@ -34,7 +36,7 @@
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
+<!--                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>-->
 
                 </ul>
             </nav>
@@ -46,7 +48,7 @@
 </div>
 
 <!-----  cart items details ----->
-<div class="small-container cart-page">
+<div th:if="${products}" class="small-container cart-page">
 
     <table>
         <tr>
@@ -54,6 +56,7 @@
             <th>Quantity</th>
             <th>Subtotal</th>
         </tr>
+<!--        "(${name} != null ? ${name} : '')"-->
         <tr th:each="product : ${products}">
 
             <td >
@@ -64,7 +67,6 @@
 <!--                            <small th:text="${product.getQuantity()}"></small>-->
                             <small th:text="${product.getClothes().getPrice()}"></small>
                             <br>
-
                             <form th:method="POST" th:action="@{'/shoppingCart/delete/{id}' (id=${product.getId()})}">
                                 <button class="btn" type="submit">
                                     <i>Delete</i>
@@ -83,9 +85,11 @@
     <div class="total-price">
 
         <table>
+            <form th:object="${products.get(0)}" th:method="POST" th:action="@{/makeOrder}">
             <tr>
                 <td>Subtotal</td>
-                <td th:text="${total}"></td>
+                <td><input type="hidden" name="total" th:value="${total}" th:text="${total}"/></td>
+<!--                <td th:text="${total}"></td>-->
             </tr>
 <!--            <tr>-->
 <!--                <form th:action="@{'/shoppingCart/voucherPrice'}">-->
@@ -104,12 +108,22 @@
 <!--            </tr>-->
             <tr>
                 <td></td>
-                <td><button class="btn">BUY</button></td>
+
+                <td><button class="btn">Make order</button></td>
             </tr>
+            </form>
         </table>
     </div>
 
 
+</div>
+
+
+
+
+<!--empty cart-->
+<div th:unless="${products}" class="small-container cart-page">
+    <p class="cart-info">There are no items in the cart!</p>
 </div>
 
 

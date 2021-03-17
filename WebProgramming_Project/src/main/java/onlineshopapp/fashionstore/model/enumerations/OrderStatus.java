@@ -2,5 +2,9 @@ package onlineshopapp.fashionstore.model.enumerations;
 
 public enum OrderStatus {
     ORDERED,
-    DELIVERED;
+    Confirmed,
+    Prepared,
+    ReceivedByPostman,
+    OnYourWay,
+    Delivered
 }
