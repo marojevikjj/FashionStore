@@ -9,5 +9,5 @@ public interface ShoppingCartService {
     ShoppingCart addProductToShoppingCart(String username, OrderedClothes clothes);
     ShoppingCart getActiveShoppingCart(String username);
     List<OrderedClothes> listAllProductsInShoppingCart(Long cartId);
-//    void deleteOrderedClothes(OrderedClothes orderedClothes);
+    void deleteOrderedClothes(ShoppingCart shoppingCart);
 }

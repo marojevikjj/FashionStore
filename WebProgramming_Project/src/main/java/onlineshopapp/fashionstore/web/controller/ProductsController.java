@@ -32,12 +32,15 @@ public class ProductsController {
 */
 
     @GetMapping
-    public String showProducts(@RequestParam(required = false) String nameSearch, @RequestParam(required = false) Long categoryId, Model model) {
+    public String showProducts(@RequestParam(required = false) String nameSearch, @RequestParam(required = false) Long categoryId,
+                               @RequestParam(required = false) String error, Model model) {
         if (nameSearch == null && categoryId == null) {
             model.addAttribute("products", this.clothesService.listAllClothes());
         } /* else {
             model.addAttribute("products", this.service.listProductsByNameAndCategory(nameSearch, categoryId));
         } */
+        if(error != null)
+            model.addAttribute("error", error);
         return "products";
     }
 

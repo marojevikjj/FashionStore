@@ -24,8 +24,9 @@
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
                     <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
+                    <li><a th:href="@{/postmanOrders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
-                    <li><a th:href="@{/cart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
+                    <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
@@ -34,7 +35,7 @@
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a>
+<!--                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a>-->
 </li>
                 </ul>
             </nav>
@@ -82,14 +83,14 @@
                 <option th:value="XL" th:text="XL"></option>
 
             <h4 th:text="'$' + ${product.price}"></h4>
-            <select>
-                <option>Select Size</option>
-                <option>S</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
+<!--            <select>-->
+<!--                <option>Select Size</option>-->
+<!--                <option>S</option>-->
+<!--                <option>M</option>-->
+<!--                <option>L</option>-->
+<!--                <option>XL</option>-->
 
-            </select>
+<!--            </select>-->
             <input th:name="quantity" type="number" min="1" th:value="1">
 <!--            <a th:href="@{/shoppingCart/add/{id} (id=${product.id})}" class="btn">Add To Cart</a>-->
                 <button class="btn" type="submit">
