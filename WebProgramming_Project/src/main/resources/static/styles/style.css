@@ -575,6 +575,16 @@ form a{
 
 
 
+.pole{
+    width: 90%;
+    margin-left: 30px;
+    padding-left: 170px;
+    text-align: center;
+}
+
+.forma{
+    margin-left: 70px;
+}
 /*--------- media query for menu ---------*/
 
 @media only screen and (max-width: 800px){

@@ -19,6 +19,12 @@ public class Clothes {
 
     private String image;
 
+    private String image1;
+
+    private String image2;
+
+    private String image3;
+
     private double price;
 
     private double grade;
@@ -31,10 +37,13 @@ public class Clothes {
 
     private int quantitySizeXL;
 
-    public Clothes(String name, String description, String image, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
+    public Clothes(String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
         this.name = name;
         this.description = description;
         this.image = image;
+        this.image1 = image1;
+        this.image2 = image2;
+        this.image3 = image3;
         this.price = price;
         this.grade = grade;
         this.quantitySizeS = quantitySizeS;
