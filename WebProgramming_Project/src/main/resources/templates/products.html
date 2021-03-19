@@ -57,6 +57,19 @@
     </div>
 </div>
 
+<style>
+    .add-item{
+        color: white;
+    }
+
+    .edit-item{
+        color: white;
+    }
+
+    .kopce{
+        margin-top: -20px ;
+    }
+</style>
 
 <!--------- products ------->
 <div class="small-container">
@@ -71,6 +84,11 @@
             <option>Sort by rating</option>
         </select>
     </div>
+    <!--- <button class="btn"sec:authorize="hasRole('ROLE_ADMIN')">Add new product</button> --->
+   <!--- <button class="btn" sec:authorize="hasRole('ROLE_ADMIN')"><a  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/products/add}" class="add-item">Add new product
+    </a></button> -->
+    <button class="btn" ><a th:href="@{/products/add}" class="add-item">Add new product
+    </a></button>
 
     <p>
     <div th:if="${error}" th:text="${error}" style="background-color: transparent; font-size: smaller; color: red; text-align: center" readonly></div>
@@ -90,8 +108,12 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p th:text="${p.price}"></p>
+            <p th:text="'$' + ${p.price}"></p>
+           <button class="btn"><a th:href="@{/products/{id}/edit (id=${p.getId()})}" class="edit-item">Edit</a></button>
+            <form class="kopce" th:action="@{/products/delete/{id} (id=${p.getId()})}" th:method="POST"><button type="submit" class="btn">Delete</button></form>
+
         </div>
+
 
     </div>
 

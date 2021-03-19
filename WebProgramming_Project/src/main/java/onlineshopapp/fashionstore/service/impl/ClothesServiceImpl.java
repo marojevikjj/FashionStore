@@ -34,8 +34,8 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
-    public Clothes create(String name, String description, String image, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
-        Clothes product = new Clothes(name, description, image, price, grade, quantitySizeS, quantitySizeM, quantitySizeL, quantitySizeXL);
+    public Clothes create(String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
+        Clothes product = new Clothes(name, description, image, image1, image2, image3, price, grade, quantitySizeS, quantitySizeM, quantitySizeL, quantitySizeXL);
         return this.clothesRepository.save(product);
     }
 
@@ -43,11 +43,14 @@ public class ClothesServiceImpl implements ClothesService {
 
 
     @Override
-    public Clothes update(Long id, String name, String description, String image, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
+    public Clothes update(Long id, String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
         Clothes product = this.findById(id);
         product.setName(name);
         product.setDescription(description);
         product.setImage(image);
+        product.setImage1(image1);
+        product.setImage2(image2);
+        product.setImage3(image3);
         product.setPrice(price);
         product.setGrade(grade);
         product.setQuantitySizeS(quantitySizeS);

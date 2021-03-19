@@ -1,10 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store</title>
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"  th:href="@{/styles/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
+<div class="header">
+    <div class="container">
+
+        <div class="navbar">
+            <div class="logo">
+                <a th:href="@{/home}"><img src="../images/logo.png" width="200px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a th:href="@{/home}">Home</a></li>
+                    <li><a th:href="@{/products}">Products</a></li>
+                    <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
+                    <li><a th:href="@{/postmanOrders}" sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+                    <li><a th:href="@{/cart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
+                        <div class="dropdown-content">
+                            <a th:href="@{/login}" sec:authorize="isAuthenticated()">My Account</a>
+                            <a href="/create-account">Create account</a>
+                            <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
+        </div>
+
+    </div>
+</div>
+
+
+<!-------- add/edit  page --------->
+
+
+<form th:action="@{/products/{id} (id=${product?.getId()})}" th:method="POST" class="forma">
+    <div class="row">
+        <div class="c-2">
+            <div>
+                <label for="name">Name</label>
+                <input type="text"
+                       id="name"
+                       name="name"
+                       class="pole"
+                       th:value="${product?.name}"
+                       required>
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <input type="text"
+                       id="description"
+                       name="description"
+                       class="pole"
+                       th:value="${product?.description}"
+                       required>
+            </div>
+            <div>
+                <label for="image">Image 1</label>
+                <input type="text"
+                       id="image"
+                       name="image"
+                       class="pole"
+                       th:value="${product?.image}"
+                       required>
+            </div>
+            <div>
+                <label for="image1">Image 2</label>
+                <input type="text"
+                       id="image1"
+                       name="image1"
+                       class="pole"
+                       th:value="${product?.image1}"
+                       required>
+            </div>
+            <div>
+                <label for="image2">Image 3</label>
+                <input type="text"
+                       id="image2"
+                       name="image2"
+                       class="pole"
+                       th:value="${product?.image2}"
+                       required>
+            </div>
+
+            <div>
+                <label for="image3">Image 4</label>
+                <input type="text"
+                       id="image3"
+                       name="image3"
+                       class="pole"
+                       th:value="${product?.image3}"
+                       required>
+            </div>
+        </div>
+        <div class="c-2">
+            <div>
+                <label for="price">Price</label>
+                <input type="number"
+                       id="price"
+                       name="price"
+                       class="pole"
+                       th:value="${product?.price}"
+                       min="0"
+                       required>
+            </div>
+            <div>
+                <label for="grade">Grade</label>
+                <input type="number"
+                       id="grade"
+                       name="grade"
+                       class="pole"
+                       th:value="${product?.grade}"
+                       min="0"
+                       required>
+            </div>
+            <div>
+                <label for="quantitySizeS">Quantity Size S</label>
+                <input type="number"
+                       id="quantitySizeS"
+                       name="quantitySizeS"
+                       class="pole"
+                       th:value="${product?.quantitySizeS}"
+                       min="0"
+                       required>
+            </div>
+            <div>
+                <label for="quantitySizeM">Quantity Size M</label>
+                <input type="number"
+                       id="quantitySizeM"
+                       name="quantitySizeM"
+                       class="pole"
+                       th:value="${product?.quantitySizeM}"
+                       min="0"
+                       required>
+            </div>
+            <div>
+                <label for="quantitySizeL">Quantity Size L</label>
+                <input type="number"
+                       id="quantitySizeL"
+                       name="quantitySizeL"
+                       class="pole"
+                       th:value="${product?.quantitySizeL}"
+                       min="0"
+                       required>
+            </div>
+            <div>
+                <label for="quantitySizeXL">Quantity Size XL</label>
+                <input type="number"
+                       id="quantitySizeXL"
+                       name="quantitySizeXL"
+                       class="pole"
+                       th:value="${product?.quantitySizeXL}"
+                       min="0"
+                       required>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button id="submit" type="submit" class="btn">Submit</button>
+    <a id="back" href="/products" > - Back to products page -</a>
+
+</form>
+</div>
+
+</div>
+
+
+
+<!------------ footer ---------->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and iOS mobile phone.</p>
+                <div class="app-logo">
+                    <img src="../images/playstore.png">
+                    <img src="../images/appstore.png">
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="../images/logo-footer.png" width="150px">
+                <p>Our Purpose Is To Sustainably Make The Pleasure and Benefits of Products Acessible to the Many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="">Coupons</a></li>
+                    <li><a href="">Blog Post</a></li>
+                    <li><a href="">Return Policy</a></li>
+                    <li><a href="">Join Affiliate</a></li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com/">Facebook</a></li>
+                    <li><a href="https://twitter.com/?lang=en">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2021 - Fashion Store &#169;</p>
+    </div>
+</div>
 </body>
 </html>
