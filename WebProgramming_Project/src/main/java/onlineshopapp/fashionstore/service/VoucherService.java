@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface VoucherService {
     Optional<Voucher> findById(Long id);
+    Voucher create(String voucherName, int discount);
 }

@@ -23,18 +23,17 @@
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
                     <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postmanOrders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/postman/orders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
-                            <a th:href="@{/login}" sec:authorize="isAuthenticated()">My Account</a>
+                            <a href="/voucher">Create voucher</a>
                             <a href="/create-account">Create account</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-<!--                    <li> <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>-->
                 </ul>
             </nav>
 
@@ -84,7 +83,17 @@
                 </br>
                 <p>City
                     </br>
-                    <input th:value="(${city} != null ? ${city} : '')" name="city" type="text" required/>
+<!--                    <input th:value="(${city} != null ? ${city} : '')" name="city" type="text" required/>-->
+                    <select name="city" style="margin-top:25px;" id="select">
+                        <option th:if="${city} != null" th:value="(${city} != null ? ${city} : '')" th:selected="${city}" th:text="${city}"></option>
+                        <option th:value="NewYork" th:text="NewYork"></option>
+                        <option th:value="Paris" th:text="Paris"></option>
+                        <option th:value="TelAviv" th:text="TelAviv"></option>
+                        <option th:value="SanFrancisco" th:text="SanFrancisco"></option>
+                        <option th:value="Berlin" th:text="Berlin"></option>
+                        <option th:value="Amsterdam" th:text="Amsterdam"></option>
+                        <option th:value="Rome" th:text="Rome"></option>
+                    </select>
                 </p>
                 </br>
                 <p>Telephone
@@ -127,50 +136,6 @@
     </form>
 
 </div>
-
-
-
-<!--        <div class="col-4">-->
-<!--            <img src="../images/product10.jpg">-->
-<!--            <h4>Oversized colourful cardigan</h4>-->
-<!--            <div class="rating">-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star-half-o" aria-hidden="true"></i>-->
-<!--            </div>-->
-<!--            <p>$125.00</p>-->
-<!--        </div>-->
-
-<!--        <div class="col-4">-->
-<!--            <img src="../images/product11.jpg">-->
-<!--            <h4>Trainers with trims</h4>-->
-<!--            <div class="rating">-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star-half-o" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--            </div>-->
-<!--            <p>$75.00</p>-->
-<!--        </div>-->
-
-<!--        <div class="col-4">-->
-<!--            <img src="../images/product12.jpg">-->
-<!--            <h4>Denim joggers</h4>-->
-<!--            <div class="rating">-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--            </div>-->
-<!--            <p>$100.00</p>-->
-<!--        </div>-->
-
-
-
 
 <!------------ footer ---------->
 <div class="footer">

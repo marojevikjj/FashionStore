@@ -24,8 +24,8 @@
                 <ul id="MenuItems">
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
-                    <li><a th:href="@{/orders}"  sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postman/postmanOrders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
+                    <li><a th:href="@{/postman/orders}" sec:authorize="isAuthenticated()">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
@@ -48,28 +48,33 @@
 
 <!-------- account-page --------->
 <div class="account-page">
+    <div style="font-size: 18px;
+    color: #28a746;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+
+    padding-right: 210px;
+   " th:if="${success}">You have successfully created a voucher!</div>
     <div class="container">
         <div class="row">
             <div class="col-2">
                 <img src="../images/modeli.png" width="100%" >
             </div>
             <div class="col-2">
-                <div class="form-container">
+                <div class="form-container" style="height: 270px!important;">
                     <div class="form-btn">
-                        <span>Register</span>
+                        <span>Create voucher</span>
                         <hr id="Indicator">
                     </div>
-                    <form id="RegForm" action="/register" method="post">
-                        <input type="text"  name="username" class="form-control" placeholder="Username" required=""
+
+                    <form id="VocuherForm" method="post" action="/voucher">
+                        <input type="text" id="voucherName" name="voucherName" class="form-control" placeholder="Name" required=""
                                autofocus="">
-                        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required="" autofocus="">
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Name" required="" autofocus="">
-                        <input type="password"  name="password" class="form-control" placeholder="Password"
+                        <input type="text" name="discount" class="form-control" placeholder="Discount in percent"
                                required="">
-                        <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control"
-                               placeholder="Repeat Password" required="">
-                        <button type="submit" class="btn">Register</button>
-                        <div style="font-size: 12px;color: red;font-style:italic;" th:if="${hasError}" th:text="${error}"></div>
+                        <button type="submit" class="btn" style="width: 100%">Create voucher</button>
+                        <br>
                     </form>
 
                 </div>

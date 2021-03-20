@@ -23,7 +23,7 @@ public class Order {
     @ManyToOne
     private User postman;
 
-    @ManyToMany
+    @OneToMany
     private List<OrderedClothes> orderedClothes;
 
     @Enumerated(EnumType.STRING)
@@ -47,9 +47,7 @@ public class Order {
 
     public Order(User user, List<OrderedClothes> orderedClothes, String name, String surname, String address, String telephone, String city, double price, User postman) {
         this.user = user;
-//        this.postman = postman;
-//        this.orderedClothes = orderedClothes;
-        this.orderStatus = OrderStatus.ORDERED;
+        this.orderStatus = OrderStatus.Ordered;
         this.name = name;
         this.surname = surname;
         this.address = address;

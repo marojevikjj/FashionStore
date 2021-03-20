@@ -36,18 +36,17 @@
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
                     <li><a th:href="@{/orders}"  sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postmanOrders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/postman/orders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
-                            <a th:href="@{/login}" sec:authorize="isAuthenticated()">My Account</a>
+                            <a href="/voucher">Create voucher</a>
                             <a href="/create-account">Create account</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-<!--                  <li> <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>-->
                 </ul>
             </nav>
 
@@ -77,17 +76,17 @@
     <h3 th:if="${#request.getRemoteUser() != null}" class="welcome-message">We wish you pleasant shopping <th:block th:if="${#request.getRemoteUser() != null}" th:text="${#request.getRemoteUser()}"></th:block>!</h3>
     <div class="row row-2">
         <!-- <h2>Products</h2> -->
-        <input id="input-id" type="text"><button class="btn">Search</button>
-        <select>
-            <option>Default sorting</option>
-            <option>Sort by price</option>
-            <option>Sort by rating</option>
-        </select>
+        <div class="col"> <input id="input-id" type="text"><button class="btn" type="submit">Search</button></div>
+        <div class="col">
+            <select>
+                <option>Default sorting</option>
+                <option>Sort by price</option>
+                <option>Sort by rating</option>
+            </select>
+        </div>
+
     </div>
-    <!--- <button class="btn"sec:authorize="hasRole('ROLE_ADMIN')">Add new product</button> --->
-   <!--- <button class="btn" sec:authorize="hasRole('ROLE_ADMIN')"><a  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/products/add}" class="add-item">Add new product
-    </a></button> -->
-    <button class="btn" ><a th:href="@{/products/add}" class="add-item">Add new product
+    <button class="btn" type="submit" ><a th:href="@{/products/add}" class="add-item">Add new product
     </a></button>
 
     <p>
@@ -109,7 +108,7 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             <p th:text="'$' + ${p.price}"></p>
-           <button class="btn"><a th:href="@{/products/{id}/edit (id=${p.getId()})}" class="edit-item">Edit</a></button>
+           <button class="btn" type="submit"><a th:href="@{/products/{id}/edit (id=${p.getId()})}" class="edit-item">Edit</a></button>
             <form class="kopce" th:action="@{/products/delete/{id} (id=${p.getId()})}" th:method="POST"><button type="submit" class="btn">Delete</button></form>
 
         </div>

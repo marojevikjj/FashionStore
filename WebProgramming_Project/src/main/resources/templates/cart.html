@@ -25,19 +25,17 @@
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
                     <li><a th:href="@{/orders}"  sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postmanOrders}" sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/postman/orders}" sec:authorize="isAuthenticated()">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
-                            <a th:href="@{/login}" sec:authorize="isAuthenticated()">My Account</a>
+                            <a href="/voucher">Create voucher</a>
                             <a href="/create-account">Create account</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-<!--                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>-->
-
                 </ul>
             </nav>
 
@@ -56,15 +54,14 @@
             <th>Quantity</th>
             <th>Subtotal</th>
         </tr>
-<!--        "(${name} != null ? ${name} : '')"-->
+
         <tr th:each="product : ${products}">
 
             <td >
                 <div class="cart-info">
                     <img th:src="${product.getClothes().getImage()}">
-                        <div>
+                        <div style="max-width: 500px;">
                             <p th:text="${product.getClothes().getDescription()}">Mock croc crossbody bag</p>
-<!--                            <small th:text="${product.getQuantity()}"></small>-->
                             <small th:text="${product.getClothes().getPrice()}"></small>
                             <br>
                             <form th:method="POST" th:action="@{'/shoppingCart/delete/{id}' (id=${product.getId()})}">
@@ -89,23 +86,8 @@
             <tr>
                 <td>Subtotal</td>
                 <td><input type="hidden" name="total" th:value="${total}" th:text="${total}"/></td>
-<!--                <td th:text="${total}"></td>-->
             </tr>
-<!--            <tr>-->
-<!--                <form th:action="@{'/shoppingCart/voucherPrice'}">-->
-<!--                    <td>Enter voucher code:</td>-->
-<!--                    <td><input th:name="code" id="voucher-code" type="text"></td>-->
-<!--                    <td>-->
-<!--                    <button class="btn" type="submit">-->
-<!--                        <i>Submit voucher</i>-->
-<!--                    </button>-->
-<!--                    </td>-->
-<!--                </form>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Total price with voucher</td>-->
-<!--                <td th:text="${total}"></td>-->
-<!--            </tr>-->
+
             <tr>
                 <td></td>
 

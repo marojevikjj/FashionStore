@@ -19,7 +19,7 @@ public class ShoppingCart {
     @ManyToOne
     private User user;
 
-    @ManyToMany
+    @OneToMany
     private List<OrderedClothes> orderedClothes;
 
     @Enumerated(EnumType.STRING)

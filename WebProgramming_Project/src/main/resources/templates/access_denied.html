@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <title>Fashion Store</title>
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet"  th:href="@{/styles/style.css}">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+<body>
+<div class="container py-5">
+    <div class="row" style="height: 100vh">
+        <div class="col-md-2 text-center">
+            <p><i class="fa fa-exclamation-triangle fa-5x"></i><br/>Status Code: 403</p>
+        </div>
+        <div class="col-md-10">
+            <p>Sorry, your access is refused.<br/>Please go back to the previous page to continue browsing.</p>
+            <a class="btn btn-danger" href="javascript:history.back()">Go Back</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
