@@ -20,6 +20,17 @@
             font-style: italic;
             letter-spacing: 0.5px;
         }
+        .add-item{
+            color: white;
+        }
+
+        .edit-item{
+            color: white;
+        }
+
+        .kopce{
+            margin-top: -20px ;
+        }
     </style>
 </head>
 <body>
@@ -44,6 +55,7 @@
                         <div class="dropdown-content">
                             <a href="/voucher">Create voucher</a>
                             <a href="/create-account">Create account</a>
+                            <a href="/admin-calendar">Create event</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
@@ -56,19 +68,7 @@
     </div>
 </div>
 
-<style>
-    .add-item{
-        color: white;
-    }
 
-    .edit-item{
-        color: white;
-    }
-
-    .kopce{
-        margin-top: -20px ;
-    }
-</style>
 
 <!--------- products ------->
 <div class="small-container">

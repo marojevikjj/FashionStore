@@ -32,6 +32,7 @@
                         <div class="dropdown-content">
                             <a href="/create-account">Create account</a>
                             <a href="/voucher">Create voucher</a>
+                            <a href="/admin-calendar">Create event</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
@@ -43,10 +44,11 @@
         </div>
 
         <div class="row">
-            <div class="col-2">
-                <h1>Welcome to the <br>Fashion Store!</h1>
+            <div class="col-2" style="margin-top: -40px;!important;">
+                <h1>Welcome to the<br>Fashion Store!</h1>
                 <p>-If you can't stop thinking about it <b>BUY IT</b>-</p>
                 <a th:href="@{/products}" class="btn">Shop now &#8594;</a>
+                <p sec:authorize="isAuthenticated()">Check out our <a href="/calendar" style="color: #be2d8b;font-weight: bold;">calendar</a> and stay on top with our latest promotions! </p>
             </div>
             <div class="col-2">
                 <img src="../images/modeli.png">
