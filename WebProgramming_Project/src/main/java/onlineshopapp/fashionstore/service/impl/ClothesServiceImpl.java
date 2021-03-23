@@ -71,4 +71,13 @@ public class ClothesServiceImpl implements ClothesService {
     public Optional<Clothes> findOptionalById(Long id) {
         return clothesRepository.findById(id);
     }
+
+    @Override
+    public List<Clothes> listProductsByName(String name) {
+        String nameLike = "%"+name+"%";
+        if(name != null)
+            return clothesRepository.findAllByNameLike(nameLike);
+        else
+            return clothesRepository.findAll();
+    }
 }

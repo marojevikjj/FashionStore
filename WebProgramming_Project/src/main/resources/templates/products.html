@@ -76,7 +76,11 @@
     <h3 th:if="${#request.getRemoteUser() != null}" class="welcome-message">We wish you pleasant shopping <th:block th:if="${#request.getRemoteUser() != null}" th:text="${#request.getRemoteUser()}"></th:block>!</h3>
     <div class="row row-2">
         <!-- <h2>Products</h2> -->
-        <div class="col"> <input id="input-id" type="text"><button class="btn" type="submit">Search</button></div>
+        <div class="col">
+            <form th:action="@{'/products'}" th:method="GET" id="filter-form">
+            <label for="nameSearch"></label>
+            <input id="nameSearch" type="text" name="nameSearch" placeholder="Enter product"><button class="btn" type="submit" id="filter">Search</button></div>
+        </form>
         <div class="col">
             <select>
                 <option>Default sorting</option>

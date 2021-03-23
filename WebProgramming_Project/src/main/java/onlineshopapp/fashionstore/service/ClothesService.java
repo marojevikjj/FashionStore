@@ -19,4 +19,6 @@ public interface ClothesService {
     Clothes delete(Long id);
 
     Optional<Clothes> findOptionalById(Long id);
+
+    List<Clothes> listProductsByName(String name);
 }

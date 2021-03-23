@@ -18,10 +18,12 @@ public class ProductsController {
 
 
     @GetMapping
-    public String showProducts(@RequestParam(required = false) String nameSearch, @RequestParam(required = false) Long categoryId,
+    public String showProducts(@RequestParam(required = false) String nameSearch,
                                @RequestParam(required = false) String error, Model model) {
-        if (nameSearch == null && categoryId == null) {
+        if (nameSearch == null) {
             model.addAttribute("products", this.clothesService.listAllClothes());
+        } else {
+            model.addAttribute("products", this.clothesService.listProductsByName(nameSearch));
         }
         if(error != null)
             model.addAttribute("error", error);

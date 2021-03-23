@@ -353,7 +353,7 @@ select:focus{
     color: #fff;
 }
 
-#input-id{
+#nameSearch{
     width: 160px;
     height: 30px;
     padding-left: 10px;
@@ -362,7 +362,7 @@ select:focus{
     border: 1px solid #d184ba;
 }
 
-#input-id:focus{
+#nameSearch:focus{
     outline: none;
 }
 
