@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClothesService {
-    Page<Clothes> findAll(int pageNumber);
+    Page<Clothes> findAll(int pageNumber, String sortField, String sortDir);
 
     Clothes findById(Long id);
 

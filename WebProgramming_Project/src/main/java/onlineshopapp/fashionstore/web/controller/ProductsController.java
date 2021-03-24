@@ -3,6 +3,7 @@ package onlineshopapp.fashionstore.web.controller;
 import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.service.ClothesService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,15 +36,18 @@ public class ProductsController {
 
     @GetMapping
     public String showProducts(Model model) {
-         return listByPage(null, null, 1, model);
+         return listByPage(null, null, 1, model, "name", "asc");
     }
 
     @GetMapping("page/{pageNumber}")
     public String listByPage(@RequestParam(required = false) String nameSearch,
                              @RequestParam(required = false) String error,
-                             @PathVariable("pageNumber") int currentPage,  Model model){
+                             @PathVariable("pageNumber") int currentPage, Model model,
+                             @Param("sortField") String sortField,
+                             @Param("sortDir") String sortDir){
         if (nameSearch == null) {
-            Page<Clothes> page = this.clothesService.findAll(currentPage);
+            Page<Clothes> page = this.clothesService.findAll(currentPage, sortField, sortDir);
+
             long totalItems = page.getTotalElements();
             int totalPages = page.getTotalPages();
 
@@ -53,6 +57,8 @@ public class ProductsController {
             model.addAttribute("totalItems", totalItems);
             model.addAttribute("totalPages", totalPages);
             model.addAttribute("products", listProducts);
+            model.addAttribute("sortField", sortField);
+            model.addAttribute("sortDir", sortDir);
         } else {
             model.addAttribute("products", this.clothesService.listProductsByName(nameSearch));
         }
@@ -98,6 +104,7 @@ public class ProductsController {
         return "redirect:/products";
     }
 
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         this.clothesService.delete(id);

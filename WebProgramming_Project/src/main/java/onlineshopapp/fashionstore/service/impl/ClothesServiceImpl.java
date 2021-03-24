@@ -3,11 +3,12 @@ package onlineshopapp.fashionstore.service.impl;
 import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.model.exceptions.InvalidClothesIdException;
 import onlineshopapp.fashionstore.repository.ClothesRepository;
-import onlineshopapp.fashionstore.repository.ProductRerository;
+import onlineshopapp.fashionstore.repository.ProductRepository;
 import onlineshopapp.fashionstore.service.ClothesService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,24 +18,26 @@ import java.util.Optional;
 public class ClothesServiceImpl implements ClothesService {
 
     private final ClothesRepository clothesRepository;
-    private final ProductRerository productRerository;
+    private final ProductRepository productRepository;
 
-    public ClothesServiceImpl(ClothesRepository clothesRepository, ProductRerository productRerository) {
+    public ClothesServiceImpl(ClothesRepository clothesRepository, ProductRepository productRepository) {
         this.clothesRepository = clothesRepository;
-        this.productRerository = productRerository;
+        this.productRepository = productRepository;
     }
 
     @Override
-    public Page<Clothes> findAll(int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, 2);
-        return productRerository.findAll(pageable);
+    public Page<Clothes> findAll(int pageNumber, String sortField, String sortDir) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, 2, sort);
+        return productRepository.findAll(pageable);
     }
 
     @Override
     public Clothes findById(Long id) {
         return this.clothesRepository.findById(id).orElseThrow(InvalidClothesIdException::new);
     }
-    
+
 
     @Override
     public Clothes create(String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {

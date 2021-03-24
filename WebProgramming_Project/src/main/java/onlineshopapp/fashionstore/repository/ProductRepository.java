@@ -3,5 +3,6 @@ package onlineshopapp.fashionstore.repository;
 import onlineshopapp.fashionstore.model.Clothes;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ProductRerository extends PagingAndSortingRepository<Clothes, Long> {
+public interface ProductRepository extends PagingAndSortingRepository<Clothes, Long> {
+
 }
