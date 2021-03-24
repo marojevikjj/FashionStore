@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ClothesRepository extends JpaRepository<Clothes, Long> {
+
     List<Clothes> findAllByNameLike(String name);
 }

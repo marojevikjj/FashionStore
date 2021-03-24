@@ -3,7 +3,11 @@ package onlineshopapp.fashionstore.service.impl;
 import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.model.exceptions.InvalidClothesIdException;
 import onlineshopapp.fashionstore.repository.ClothesRepository;
+import onlineshopapp.fashionstore.repository.ProductRerository;
 import onlineshopapp.fashionstore.service.ClothesService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,25 +17,24 @@ import java.util.Optional;
 public class ClothesServiceImpl implements ClothesService {
 
     private final ClothesRepository clothesRepository;
+    private final ProductRerository productRerository;
 
-    public ClothesServiceImpl(ClothesRepository clothesRepository) {
+    public ClothesServiceImpl(ClothesRepository clothesRepository, ProductRerository productRerository) {
         this.clothesRepository = clothesRepository;
+        this.productRerository = productRerository;
     }
 
     @Override
-    public List<Clothes> findAll() {
-        return clothesRepository.findAll();
+    public Page<Clothes> findAll(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 2);
+        return productRerository.findAll(pageable);
     }
 
     @Override
     public Clothes findById(Long id) {
         return this.clothesRepository.findById(id).orElseThrow(InvalidClothesIdException::new);
     }
-
-    @Override
-    public List<Clothes> listAllClothes() {
-        return this.clothesRepository.findAll();
-    }
+    
 
     @Override
     public Clothes create(String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
