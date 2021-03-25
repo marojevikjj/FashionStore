@@ -77,20 +77,20 @@
     <div class="row row-2">
         <!-- <h2>Products</h2> -->
         <div class="col">
-            <form th:action="@{'/products'}" th:method="GET" id="filter-form">
+            <form th:action="@{'/products/searchProducts'}" th:method="GET" id="filter-form">
             <label for="nameSearch"></label>
-            <input id="nameSearch" type="text" name="nameSearch" placeholder="Enter product name"><button class="btn" type="submit" id="filter">Search</button></div>
-        </form>
+            <input id="nameSearch" type="text" name="nameSearch" placeholder="Enter product name" required><button class="btn" type="submit" id="filter">Search</button>
+        </form></div>
 
         <div class="col">
        Sort by:&nbsp;
         <li class="dropdown">
             <div><i class="fas fa-chevron-circle-down"  style="font-size: 30px;color: #b3017de0;"></i></div>
             <div class="dropdown-content">
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=dateCreated&sortDir=' + ${sortDir}}">Latest</a>
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${sortDir}}">Name</a>
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${sortDir}}">Price</a>
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=grade&sortDir=' + ${sortDir}}">Rating</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=dateCreated&sortDir=desc' }">Latest</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=name&sortDir=asc'}">Name</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=asc'}">Price</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=grade&sortDir=desc'}">Rating</a>
 
         </div>
         </li>
@@ -130,9 +130,7 @@
 
 
 
-    <div>
-        Total Products: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]]
-        &nbsp; - &nbsp;
+    <div class="pagination">
 
         <a th:if="${currentPage > 1}" th:href="@{'/products/page/1?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}}">First</a>
         <span th:unless="${currentPage > 1}">First</span>
@@ -143,9 +141,10 @@
         <span th:unless="${currentPage > 1}">Previous</span>
         &nbsp;&nbsp;
 
-        <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-           <a th:if="${i != currentPage}" th:href="@{'/products/page/' + ${i}} + '?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}">[[${i}]]</a>
-           <span th:unless="${i != currentPage}">[[${i}]]</span>
+
+        <span class="page-btn" th:each="i: ${#numbers.sequence(1, totalPages)}">
+           <a th:if="${i != currentPage}" th:href="@{'/products/page/' + ${i}} + '?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}"><p>[[${i}]]</p></a>
+           <span th:unless="${i != currentPage}"><p>[[${i}]]</p></span>
             &nbsp;&nbsp;
         </span>
 

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -20,32 +22,17 @@ public class ProductsController {
         this.clothesService = clothesService;
     }
 
-
-  /*  @GetMapping
-    public String showProducts(@RequestParam(required = false) String nameSearch,
-                               @RequestParam(required = false) String error, Model model) {
-        if (nameSearch == null) {
-            model.addAttribute("products", this.clothesService.listAllClothes());
-        } else {
-            model.addAttribute("products", this.clothesService.listProductsByName(nameSearch));
-        }
-        if(error != null)
-            model.addAttribute("error", error);
-        return "products";
-    } */
-
     @GetMapping
     public String showProducts(Model model) {
-         return listByPage(null, null, 1, model, "name", "asc");
+         return listByPage( null, 1, model, "name", "asc");
     }
 
     @GetMapping("page/{pageNumber}")
-    public String listByPage(@RequestParam(required = false) String nameSearch,
-                             @RequestParam(required = false) String error,
+    public String listByPage(@RequestParam(required = false) String error,
                              @PathVariable("pageNumber") int currentPage, Model model,
                              @Param("sortField") String sortField,
                              @Param("sortDir") String sortDir){
-        if (nameSearch == null) {
+
             Page<Clothes> page = this.clothesService.findAll(currentPage, sortField, sortDir);
 
             long totalItems = page.getTotalElements();
@@ -59,19 +46,45 @@ public class ProductsController {
             model.addAttribute("products", listProducts);
             model.addAttribute("sortField", sortField);
             model.addAttribute("sortDir", sortDir);
-        } else {
-            model.addAttribute("products", this.clothesService.listProductsByName(nameSearch));
-        }
+
         if(error != null)
             model.addAttribute("error", error);
         return "products";
 
     }
 
+    @GetMapping("/searchProducts")
+    public String searchProducts(@RequestParam(required = false) String nameSearch, Model model){
+
+        int currentPage = 1;
+        String sortField = "name";
+        String sortDir = "asc";
+        int totalPages = 1;
+        List<Clothes> listProducts = this.clothesService.listProductsByName(nameSearch);
+        int totalItems = listProducts.size();
+
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("products", listProducts);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        return "products";
+    }
+
     @GetMapping("/{id}")
     public String showDetails(@PathVariable Long id, @org.jetbrains.annotations.NotNull Model model) {
         model.addAttribute("product", this.clothesService.findById(id));
-        model.addAttribute("produkti", this.clothesService.listAll());
+
+        List<Clothes> prod = this.clothesService.listAll();
+        List<Clothes> produkti = new ArrayList<>();
+        Collections.shuffle(prod);
+
+        for(int i = 0; i < 4; i++){
+            Clothes element = prod.get(i);
+            produkti.add(element);
+        }
+        model.addAttribute("produkti", produkti);
         return "product-details";
     }
 

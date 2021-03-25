@@ -51,11 +51,9 @@
 
     <div class="row">
 
-        <div class="col-4">
-            <p th:each="product : ${products}">
+        <div class="col-4"th:each="product : ${products}">
                 <i th:text="${product.getClothes().description}"></i>
                 <img th:src="${product.getClothes().getImage()}" >
-            </p>
             </br>
         </div>
 

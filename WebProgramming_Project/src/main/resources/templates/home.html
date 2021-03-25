@@ -46,9 +46,9 @@
         <div class="row">
             <div class="col-2" style="margin-top: -40px;!important;">
                 <h1>Welcome to the<br>Fashion Store!</h1>
-                <p>-If you can't stop thinking about it <b>BUY IT</b>-</p>
-                <a th:href="@{/products}" class="btn">Shop now &#8594;</a>
+                <!--<p>-If you can't stop thinking about it <b>BUY IT</b>-</p> -->
                 <p sec:authorize="isAuthenticated()">Check out our <a href="/calendar" style="color: #be2d8b;font-weight: bold;">calendar</a> and stay on top with our latest promotions! </p>
+                <a th:href="@{/products}" class="btn">Shop now &#8594;</a>
             </div>
             <div class="col-2">
                 <img src="../images/modeli.png">
@@ -62,13 +62,13 @@
     <div class="small-container">
         <div class="row">
             <div class="col-3">
-                <img src="../images/category1.jpg">
+                <img src="https://1.bp.blogspot.com/-Da06N8_1LGY/XRUH1kpfurI/AAAAAAAAAs0/SM53bnqh42oceuf-Mx161O0ofe1EARjogCLcBGAs/s1600/coco%2Bchanel%2Bquote.png">
             </div>
             <div class="col-3">
-                <img src="../images/category2.jpg">
+                <img src="https://www.collegefashion.net/wp-content/uploads/2019/01/beauty-begins.webp">
             </div>
             <div class="col-3">
-                <img src="../images/category3.jpg">
+                <img src="https://i.pinimg.com/564x/0d/74/f9/0d74f980882a66eb18e446628849f398.jpg">
             </div>
         </div>
     </div>
@@ -94,45 +94,7 @@
         </div>
 
     </div>
-     <!---
-        <div class="col-4">
-            <img src="../images/product2.jpg">
-            <h4>Checked blazer</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-            </div>
-            <p>$125.00</p>
-        </div>
 
-        <div class="col-4">
-            <img src="../images/product3.jpg">
-            <h4>Pink high-heel shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$75.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product4.jpg">
-            <h4>Long Oxford jumpsuit</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$100.00</p>
-        </div> --->
 
 
     <h2 class="title">Latest Products</h2>
@@ -150,100 +112,7 @@
             <p th:text="'$' + ${lp.price}"></p>
         </div>
     </div>
-<!---
-        <div class="col-4">
-            <img src="../images/product6.jpg">
-            <h4>Heeled sandals - braid detail</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-            </div>
-            <p>$125.00</p>
-        </div>
 
-        <div class="col-4">
-            <img src="../images/product7.jpg">
-            <h4>Belted coat</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$75.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product8.jpg">
-            <h4>Floral print bow scrunchie</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$100.00</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <img src="../images/product9.jpg">
-            <h4>Set of 6 retro-style rings</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$55.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product10.jpg">
-            <h4>Oversized colourful cardigan</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-            </div>
-            <p>$125.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product11.jpg">
-            <h4>Trainers with trims</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$75.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product12.jpg">
-            <h4>Denim joggers</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$100.00</p>
-        </div>
-    </div>  -->
 
 
 <!-------  offer -------->
@@ -251,17 +120,16 @@
     <div class="small-container">
         <div class="row">
             <div class="col-2">
-                <img src="../images/offer-img.jpg" class="offer-img">
-
+                <a th:href="@{/products/{id} (id=${exclusive.getId()})}"><img th:src="${exclusive.image}" class="offer-img"></a>
             </div>
             <div class="col-2">
                 <p>Exclusively Available on FashionStore</p>
-                <h1>Gathered bucket bag</h1>
+                <h1 th:text="${exclusive.name}" th:href="@{/product-details}"></h1>
                 <small>
-                    A bag carried for everyday items or personal needs. Can be appropriate for many
+                    <span th:text="${exclusive.name}"></span> carried for everyday items or personal needs. Can be appropriate for many
                     occasions, from daytime use to evening "special event" use.
-                </small>
-                <a href="" class="btn">Buy Now &#8594;</a>
+                </small></br>
+                <a th:href="@{/products/{id} (id=${exclusive.getId()})}" class="btn">Buy Now &#8594;</a>
             </div>
         </div>
     </div>
@@ -383,6 +251,5 @@
     }
 
 </script>
-
 </body>
 </html>

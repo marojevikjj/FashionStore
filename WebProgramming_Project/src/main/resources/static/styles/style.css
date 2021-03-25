@@ -253,6 +253,10 @@ small{
     font-size: 14px;
     padding: 60px 0 20px;
     margin-top: 40px;
+
+    display: compact;
+    width: 100%;
+    position: absolute;
 }
 
 .footer p{
@@ -338,7 +342,7 @@ select:focus{
     margin: 0 auto 80px;
 }
 
-.page-btn span{
+.page-btn p{
     display: inline-block;
     border: 1px solid #d184ba;
     margin-left: 10px;
@@ -349,9 +353,13 @@ select:focus{
     cursor: pointer;
 }
 
-.page-btn span:hover{
+.page-btn p:hover{
     background: #eeb5b5;
     color: #fff;
+}
+
+.pagination{
+    text-align: center;
 }
 
 #nameSearch{
@@ -579,7 +587,6 @@ form a{
     background: #b3017de0;
     height: 3px;
 }
-
 
 
 .pole{

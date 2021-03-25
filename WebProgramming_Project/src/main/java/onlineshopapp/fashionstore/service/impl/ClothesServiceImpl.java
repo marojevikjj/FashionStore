@@ -29,7 +29,7 @@ public class ClothesServiceImpl implements ClothesService {
     public Page<Clothes> findAll(int pageNumber, String sortField, String sortDir) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, 2, sort);
+        Pageable pageable = PageRequest.of(pageNumber - 1, 8, sort);
         return productRepository.findAll(pageable);
     }
 
@@ -81,10 +81,9 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public List<Clothes> listProductsByName(String name) {
         String nameLike = "%"+name+"%";
-        if(name != null)
-            return clothesRepository.findAllByNameLike(nameLike);
-        else
-            return clothesRepository.findAll();
+
+        return clothesRepository.findAllByNameLike(nameLike);
+
     }
 
     @Override
