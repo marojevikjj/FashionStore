@@ -116,10 +116,10 @@
 
 
 
-    <div class="row">
-        <div class="col-4">
-            <img src="../images/product1.jpg">
-            <h4>Mock croc crossbody bag</h4>
+    <div class="row" th:action="@{/products/{id} (id=${product.getId()})}" th:method="POST">
+        <div class="col-4" th:each="produkt : ${produkti}">
+            <a th:href="@{/products/{id} (id=${produkt.getId()})}"><img th:src="${produkt.image}"></a>
+            <a th:href="@{/products/{id} (id=${produkt.getId()})}"><h4 th:text="${produkt.name}" th:href="@{/product-details}"></h4></a>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -127,10 +127,10 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p>$55.00</p>
+            <p th:text="'$' + ${produkt.price}"></p>
         </div>
-
-        <div class="col-4">
+    </div>
+      <!--  <div class="col-4">
             <img src="../images/product2.jpg">
             <h4>Checked blazer</h4>
             <div class="rating">
@@ -167,8 +167,8 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             <p>$100.00</p>
-        </div>
-    </div>
+        </div>   --->
+
 
 
 </div>
