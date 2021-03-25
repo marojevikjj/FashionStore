@@ -86,4 +86,24 @@ public class ClothesServiceImpl implements ClothesService {
         else
             return clothesRepository.findAll();
     }
+
+    @Override
+    public List<Clothes> sortDescendingByDate() {
+        return this.clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "dateCreated"));
+    }
+
+    @Override
+    public List<Clothes> sortAscendingAlphabetic() {
+        return this.clothesRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+    }
+
+    @Override
+    public List<Clothes> sortDescendingByGrade() {
+        return this.clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "grade"));
+    }
+
+    @Override
+    public List<Clothes> listAll() {
+        return this.clothesRepository.findAll();
+    }
 }

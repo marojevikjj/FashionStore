@@ -10,4 +10,6 @@ import java.util.List;
 public interface ClothesRepository extends JpaRepository<Clothes, Long> {
 
     List<Clothes> findAllByNameLike(String name);
+
+
 }

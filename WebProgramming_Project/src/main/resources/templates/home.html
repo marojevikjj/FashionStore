@@ -79,10 +79,10 @@
 <div class="small-container">
     <h2 class="title">Featured Products</h2>
 
-    <div class="row">
-        <div class="col-4">
-            <img src="../images/product1.jpg">
-            <h4>Mock croc crossbody bag</h4>
+    <div class="row" >
+        <div class="col-4" th:each="fp : ${featuredProducts}">
+            <img th:src="${fp.image}">
+            <h4 th:text="${fp.name}" th:href="@{/product-details}"></h4>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -90,9 +90,11 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p>$55.00</p>
+            <p th:text="'$' + ${fp.price}"></p>
         </div>
 
+    </div>
+     <!---
         <div class="col-4">
             <img src="../images/product2.jpg">
             <h4>Checked blazer</h4>
@@ -130,14 +132,14 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             <p>$100.00</p>
-        </div>
-    </div>
+        </div> --->
+
+
     <h2 class="title">Latest Products</h2>
     <div class="row">
-
-        <div class="col-4">
-            <img src="../images/product5.jpg">
-            <h4>Patchwork knit cardigan</h4>
+        <div class="col-4" th:each="lp : ${latestProducts}">
+            <a th:href="@{/products/{id} (id=${lp.getId()})}"><img th:src="${lp.image}"></a>
+            <a th:href="@{/products/{id} (id=${lp.getId()})}"><h4 th:text="${lp.name}" th:href="@{/product-details}"></h4></a>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -145,9 +147,10 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p>$55.00</p>
+            <p th:text="'$' + ${lp.price}"></p>
         </div>
-
+    </div>
+<!---
         <div class="col-4">
             <img src="../images/product6.jpg">
             <h4>Heeled sandals - braid detail</h4>
@@ -240,8 +243,8 @@
             </div>
             <p>$100.00</p>
         </div>
-    </div>
-</div>
+    </div>  -->
+
 
 <!-------  offer -------->
 <div class="offer">

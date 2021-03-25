@@ -69,8 +69,9 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable Long id, Model model) {
+    public String showDetails(@PathVariable Long id, @org.jetbrains.annotations.NotNull Model model) {
         model.addAttribute("product", this.clothesService.findById(id));
+        model.addAttribute("produkti", this.clothesService.listAll());
         return "product-details";
     }
 

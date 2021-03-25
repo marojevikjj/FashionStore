@@ -20,4 +20,12 @@ public interface ClothesService {
     Optional<Clothes> findOptionalById(Long id);
 
     List<Clothes> listProductsByName(String name);
+
+    List<Clothes> sortDescendingByDate();
+
+    List<Clothes> sortAscendingAlphabetic();
+
+    List<Clothes> sortDescendingByGrade();
+
+    List<Clothes> listAll();
 }
