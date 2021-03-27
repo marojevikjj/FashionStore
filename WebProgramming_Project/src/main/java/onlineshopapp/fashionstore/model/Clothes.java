@@ -1,7 +1,7 @@
 package onlineshopapp.fashionstore.model;
 
 import lombok.Data;
-
+import java.lang.Math;
 import javax.persistence.*;
 
 @Data
@@ -27,7 +27,7 @@ public class Clothes {
 
     private double price;
 
-    private double grade;
+    private int grade;
 
     private int quantitySizeS;
 
@@ -45,7 +45,7 @@ public class Clothes {
         this.image2 = image2;
         this.image3 = image3;
         this.price = price;
-        this.grade = grade;
+        this.grade = (int)grade;
         this.quantitySizeS = quantitySizeS;
         this.quantitySizeM = quantitySizeM;
         this.quantitySizeL = quantitySizeL;

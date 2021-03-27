@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
                     <li><a th:href="@{/orders}"  sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postmanOrders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/postmanOrders}"  sec:authorize="hasRole('ROLE_ADMIN')">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
@@ -101,14 +101,12 @@
         <div class="col-4" th:each="p : ${products}">
             <a th:href="@{/products/{id} (id=${p.getId()})}"><img th:src="${p.image}"></a>
             <a th:href="@{/products/{id} (id=${p.getId()})}"><h4 th:text="${p.name}" th:href="@{/product-details}"></h4></a>
+<!--            TUKA DA SE NAPRAVAT DA SVETNAT ONOLKU DZVEZDICKI KOLKU STO E OCENATA ZA TOJ PRODUKT!-->
             <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i th:each="i : ${#numbers.sequence(1, p.getGrade())}" class="fa fa-star" aria-hidden="true"></i>
             </div>
             <p th:text="'$' + ${p.price}"></p>
+
            <button class="btn"><a th:href="@{/products/{id}/edit (id=${p.getId()})}" class="edit-item">Edit</a></button>
             <form class="kopce" th:action="@{/products/delete/{id} (id=${p.getId()})}" th:method="POST"><button type="submit" class="btn">Delete</button></form>
 

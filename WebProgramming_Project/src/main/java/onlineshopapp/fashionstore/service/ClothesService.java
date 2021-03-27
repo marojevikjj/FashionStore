@@ -1,6 +1,7 @@
 package onlineshopapp.fashionstore.service;
 
 import onlineshopapp.fashionstore.model.Clothes;
+import onlineshopapp.fashionstore.model.ClothesGrade;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +20,6 @@ public interface ClothesService {
     Clothes delete(Long id);
 
     Optional<Clothes> findOptionalById(Long id);
+
+    void updateFinalGrade(Clothes clothes, List<ClothesGrade> clothesGrades);
 }

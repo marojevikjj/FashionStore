@@ -23,7 +23,7 @@ public class Order {
     @ManyToOne
     private User postman;
 
-    @ManyToMany
+    @OneToMany
     private List<OrderedClothes> orderedClothes;
 
     @Enumerated(EnumType.STRING)
