@@ -42,24 +42,24 @@
                 <ul id="MenuItems">
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
-                    <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postman/orders}" sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/orders}"  sec:authorize="hasRole('ROLE_USER')">My Orders</a></li>
+                    <li><a th:href="@{/postman/orders}" sec:authorize="hasRole('ROLE_POSTMAN')">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
-                    <li><a th:href="@{/cart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
+                    <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
-                            <a href="/voucher">Create voucher</a>
-                            <a href="/create-account">Create account</a>
-                            <a href="/admin-calendar">Create event</a>
+                            <a href="/voucher" sec:authorize="hasRole('ROLE_ADMIN')">Create voucher</a>
+                            <a href="/create-account" sec:authorize="hasRole('ROLE_ADMIN')">Create account</a>
+                            <a href="/admin-calendar" sec:authorize="hasRole('ROLE_ADMIN')">Create event</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
                 </ul>
             </nav>
 
-            <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
         </div>
+
 
     </div>
 </div>

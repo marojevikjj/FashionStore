@@ -1,6 +1,7 @@
 package onlineshopapp.fashionstore.web.controller;
 
 import onlineshopapp.fashionstore.service.EventService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ class CalendarController {
         return new ModelAndView("calendar");
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value="/admin-calendar", method=RequestMethod.GET)
     public ModelAndView adminCalendar() {
         return new ModelAndView("admin-calendar");

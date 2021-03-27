@@ -5,6 +5,7 @@ import onlineshopapp.fashionstore.model.enumerations.Role;
 import onlineshopapp.fashionstore.model.exceptions.*;
 import onlineshopapp.fashionstore.service.PostmanOrderSerivce;
 import onlineshopapp.fashionstore.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class CreateAccountController {
         this.postmanOrderSerivce = postmanOrderSerivce;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String getCreateAccountPagePage(@RequestParam(required = false) String error, Model model) {
         if(error != null && !error.isEmpty()) {
@@ -34,7 +36,7 @@ public class CreateAccountController {
         }
         return "createAccount";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public String createAccount(@RequestParam String username,
                                 @RequestParam String password,

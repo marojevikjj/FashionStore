@@ -32,20 +32,20 @@ public class EventController {
     }
 
     @RequestMapping(value="/event", method=RequestMethod.POST)
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Event addEvent(@RequestBody Event event) {
         Event created = eventService.save(event);
         return created;
     }
 
     @RequestMapping(value="/event", method=RequestMethod.PATCH)
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Event updateEvent(@RequestBody Event event) {
         return eventService.save(event);
     }
 
     @RequestMapping(value="/event", method=RequestMethod.DELETE)
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeEvent(@RequestBody Event event) {
         eventService.deleteEvent(event);
     }
