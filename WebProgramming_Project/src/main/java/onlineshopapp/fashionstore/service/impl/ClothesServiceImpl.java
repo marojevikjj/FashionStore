@@ -4,7 +4,12 @@ import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.model.ClothesGrade;
 import onlineshopapp.fashionstore.model.exceptions.InvalidClothesIdException;
 import onlineshopapp.fashionstore.repository.ClothesRepository;
+import onlineshopapp.fashionstore.repository.ProductRepository;
 import onlineshopapp.fashionstore.service.ClothesService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +19,19 @@ import java.util.Optional;
 public class ClothesServiceImpl implements ClothesService {
 
     private final ClothesRepository clothesRepository;
+    private final ProductRepository productRepository;
 
-    public ClothesServiceImpl(ClothesRepository clothesRepository) {
+    public ClothesServiceImpl(ClothesRepository clothesRepository, ProductRepository productRepository) {
         this.clothesRepository = clothesRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
-    public List<Clothes> findAll() {
-        return clothesRepository.findAll();
+    public Page<Clothes> findAll(int pageNumber, String sortField, String sortDir) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, 8, sort);
+        return productRepository.findAll(pageable);
     }
 
     @Override
@@ -29,10 +39,6 @@ public class ClothesServiceImpl implements ClothesService {
         return this.clothesRepository.findById(id).orElseThrow(InvalidClothesIdException::new);
     }
 
-    @Override
-    public List<Clothes> listAllClothes() {
-        return this.clothesRepository.findAll();
-    }
 
     @Override
     public Clothes create(String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
@@ -82,5 +88,33 @@ public class ClothesServiceImpl implements ClothesService {
 
         clothes.setGrade((int)(total/clothesGrades.size()));
         this.clothesRepository.save(clothes);
+    }
+
+    public List<Clothes> listProductsByName(String name) {
+        String nameLike = "%"+name+"%";
+
+        return clothesRepository.findAllByNameLike(nameLike);
+
+    }
+
+    @Override
+    public List<Clothes> sortDescendingByDate() {
+        return this.clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "dateCreated"));
+    }
+
+    @Override
+    public List<Clothes> sortAscendingAlphabetic() {
+        return this.clothesRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+    }
+
+    @Override
+    public List<Clothes> sortDescendingByGrade() {
+        return this.clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "grade"));
+    }
+
+    @Override
+    public List<Clothes> listAll() {
+        return this.clothesRepository.findAll();
+
     }
 }

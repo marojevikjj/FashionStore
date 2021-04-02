@@ -1,10 +1,11 @@
 package onlineshopapp.fashionstore.service;
 
-import onlineshopapp.fashionstore.model.PostmanOrder;
+import onlineshopapp.fashionstore.model.Postman;
 import onlineshopapp.fashionstore.model.User;
 
 import java.util.List;
 
 public interface PostmanOrderSerivce {
-    List<PostmanOrder> findFromRegion(String city);
+    List<Postman> findFromRegion(String city);
+    Postman create(User user, String city);
 }

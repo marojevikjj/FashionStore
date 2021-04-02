@@ -76,6 +76,7 @@ p{
     padding: 8px 30px;
     margin: 30px 0;
     border-radius: 30px;
+    border: none;
 }
 
 .btn:hover{
@@ -135,8 +136,7 @@ p{
 .small-container{
     max-width:  1080px;
     margin: auto;
-    padding-left: 25px;
-    padding-right: 25px;
+
 }
 
 .col-4{
@@ -253,6 +253,10 @@ small{
     font-size: 14px;
     padding: 60px 0 20px;
     margin-top: 40px;
+    display: compact;
+    position: absolute;
+    left: 0;
+    right: 0;
 }
 
 .footer p{
@@ -338,7 +342,7 @@ select:focus{
     margin: 0 auto 80px;
 }
 
-.page-btn span{
+.page-btn p{
     display: inline-block;
     border: 1px solid #d184ba;
     margin-left: 10px;
@@ -349,13 +353,17 @@ select:focus{
     cursor: pointer;
 }
 
-.page-btn span:hover{
+.page-btn p:hover{
     background: #eeb5b5;
     color: #fff;
 }
 
-#input-id{
-    width: 160px;
+.pagination{
+    text-align: center;
+}
+
+#nameSearch{
+    width: 200px;
     height: 30px;
     padding-left: 10px;
     font-size: 20px;
@@ -363,7 +371,7 @@ select:focus{
     border: 1px solid #d184ba;
 }
 
-#input-id:focus{
+#nameSearch:focus{
     outline: none;
 }
 
@@ -536,15 +544,23 @@ th:last-child{
 }
 
 form input{
-    width: 100%;
     height: 30px;
     margin: 10px 0;
     padding: 0 10px;
     border: 1px solid #ccc;
+    width: 100%;
+}
+.footer-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 90px;
+    align-items: center;
+    padding-top: 30px;
 }
 
 form .btn{
-    width: 100%;
+    /*width: 100%;*/
     border: none;
     cursor: pointer;
     margin: 10px 0;
@@ -570,16 +586,11 @@ form a{
     border: none;
     background: #b3017de0;
     height: 3px;
-    margin-top: 8px;
 }
 
 
-
 .pole{
-    width: 90%;
-    margin-left: 30px;
-    padding-left: 170px;
-    text-align: center;
+    width: 100%;
 }
 
 .forma{

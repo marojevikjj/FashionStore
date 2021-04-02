@@ -20,6 +20,17 @@
             font-style: italic;
             letter-spacing: 0.5px;
         }
+        .add-item{
+            color: white;
+        }
+
+        .edit-item{
+            color: white;
+        }
+
+        .kopce{
+            margin-top: -20px ;
+        }
     </style>
 </head>
 <body>
@@ -35,19 +46,21 @@
                 <ul id="MenuItems">
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
-                    <li><a th:href="@{/orders}"  sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postmanOrders}"  sec:authorize="hasRole('ROLE_ADMIN')">Postman Orders</a></li>
+
+                    <li><a th:href="@{/orders}"  sec:authorize="hasRole('ROLE_USER')">My Orders</a></li>
+                    <li><a th:href="@{/postman/orders}" sec:authorize="hasRole('ROLE_POSTMAN')">Postman Orders</a></li>
+
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
-                            <a th:href="@{/login}" sec:authorize="isAuthenticated()">My Account</a>
-                            <a href="/create-account">Create account</a>
+                            <a href="/voucher" sec:authorize="hasRole('ROLE_ADMIN')">Create voucher</a>
+                            <a href="/create-account" sec:authorize="hasRole('ROLE_ADMIN')">Create account</a>
+                            <a href="/admin-calendar" sec:authorize="hasRole('ROLE_ADMIN')">Create event</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-<!--                  <li> <a th:href="@{/shoppingCart}" sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>-->
                 </ul>
             </nav>
 
@@ -57,19 +70,7 @@
     </div>
 </div>
 
-<style>
-    .add-item{
-        color: white;
-    }
 
-    .edit-item{
-        color: white;
-    }
-
-    .kopce{
-        margin-top: -20px ;
-    }
-</style>
 
 <!--------- products ------->
 <div class="small-container">
@@ -77,17 +78,29 @@
     <h3 th:if="${#request.getRemoteUser() != null}" class="welcome-message">We wish you pleasant shopping <th:block th:if="${#request.getRemoteUser() != null}" th:text="${#request.getRemoteUser()}"></th:block>!</h3>
     <div class="row row-2">
         <!-- <h2>Products</h2> -->
-        <input id="input-id" type="text"><button class="btn">Search</button>
-        <select>
-            <option>Default sorting</option>
-            <option>Sort by price</option>
-            <option>Sort by rating</option>
-        </select>
+        <div class="col">
+            <form th:action="@{'/products/searchProducts'}" th:method="GET" id="filter-form">
+            <label for="nameSearch"></label>
+            <input id="nameSearch" type="text" name="nameSearch" placeholder="Enter product name" required><button class="btn" type="submit" id="filter">Search</button>
+        </form></div>
+
+        <div style="display: flex;align-items: center;" class="col">
+       Sort by:&nbsp;
+        <li class="dropdown">
+            <div><i class="fas fa-chevron-circle-down"  style="font-size: 30px;color: #b3017de0;"></i></div>
+            <div class="dropdown-content">
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=dateCreated&sortDir=desc' }">Latest</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=name&sortDir=asc'}">Name</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=asc'}">Price</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=grade&sortDir=desc'}">Rating</a>
+
+        </div>
+        </li>
+        </div>
+
+
     </div>
-    <!--- <button class="btn"sec:authorize="hasRole('ROLE_ADMIN')">Add new product</button> --->
-   <!--- <button class="btn" sec:authorize="hasRole('ROLE_ADMIN')"><a  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/products/add}" class="add-item">Add new product
-    </a></button> -->
-    <button class="btn" ><a th:href="@{/products/add}" class="add-item">Add new product
+    <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn" type="submit" ><a th:href="@{/products/add}" class="add-item">Add new product
     </a></button>
 
     <p>
@@ -107,8 +120,8 @@
             </div>
             <p th:text="'$' + ${p.price}"></p>
 
-           <button class="btn"><a th:href="@{/products/{id}/edit (id=${p.getId()})}" class="edit-item">Edit</a></button>
-            <form class="kopce" th:action="@{/products/delete/{id} (id=${p.getId()})}" th:method="POST"><button type="submit" class="btn">Delete</button></form>
+           <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn" type="submit"><a th:href="@{/products/{id}/edit (id=${p.getId()})}" class="edit-item">Edit</a></button>
+            <form sec:authorize="hasRole('ROLE_ADMIN')" class="kopce" th:action="@{/products/delete/{id} (id=${p.getId()})}" th:method="POST"><button type="submit" class="btn">Delete</button></form>
 
         </div>
 
@@ -116,13 +129,34 @@
     </div>
 
 
-    <div class="page-btn">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>&#8594;</span>
+
+    <div class="pagination">
+
+        <a th:if="${currentPage > 1}" th:href="@{'/products/page/1?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}}">First</a>
+        <span th:unless="${currentPage > 1}">First</span>
+
+        &nbsp;&nbsp;
+
+        <a th:if="${currentPage > 1}" th:href="@{'/products/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}}">Previous</a>
+        <span th:unless="${currentPage > 1}">Previous</span>
+        &nbsp;&nbsp;
+
+
+        <span class="page-btn" th:each="i: ${#numbers.sequence(1, totalPages)}">
+           <a th:if="${i != currentPage}" th:href="@{'/products/page/' + ${i}} + '?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}"><p>[[${i}]]</p></a>
+           <span th:unless="${i != currentPage}"><p>[[${i}]]</p></span>
+            &nbsp;&nbsp;
+        </span>
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/products/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+
+        &nbsp;&nbsp;
+
+        <a th:if="${currentPage < totalPages}" th:href="@{'/products/page/' + ${totalPages} + '?sortField=' + ${sortField} +'&sortDir=' + ${sortDir}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
     </div>
+
 </div>
 
 
@@ -135,12 +169,12 @@
                 <h3>Download Our App</h3>
                 <p>Download App for Android and iOS mobile phone.</p>
                 <div class="app-logo">
-                    <img src="../images/playstore.png">
-                    <img src="../images/appstore.png">
+                    <img src="https://scontent.fskp4-2.fna.fbcdn.net/v/t1.15752-9/163857187_918286882255242_7386670410464618020_n.png?_nc_cat=101&ccb=1-3&_nc_sid=ae9488&_nc_ohc=6hFOmV6_ejwAX-pIoWW&_nc_ht=scontent.fskp4-2.fna&oh=e663ca05e838fa6b34010b5f38de4c5e&oe=60815E3C">
+                    <img src="https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/164588268_2998817697016394_3479922060067215287_n.png?_nc_cat=111&ccb=1-3&_nc_sid=ae9488&_nc_ohc=GGhjJBAvuG4AX9GnfGK&_nc_ht=scontent.fskp4-1.fna&oh=65328d58d8420910b898d2987167acb6&oe=607F5708">
                 </div>
             </div>
             <div class="footer-col-2">
-                <img src="../images/logo-footer.png" width="150px">
+                <img src="https://scontent.fskp4-1.fna.fbcdn.net/v/t1.15752-9/164495548_496306725108404_4069961111681803126_n.png?_nc_cat=111&ccb=1-3&_nc_sid=ae9488&_nc_ohc=1jY6W85RB-QAX9KjPSr&_nc_ht=scontent.fskp4-1.fna&oh=51449b6ac92bff59bf111d9f912b3415&oe=6081EB8E" width="150px">
                 <p>Our Purpose Is To Sustainably Make The Pleasure and Benefits of Products Acessible to the Many.</p>
             </div>
             <div class="footer-col-3">

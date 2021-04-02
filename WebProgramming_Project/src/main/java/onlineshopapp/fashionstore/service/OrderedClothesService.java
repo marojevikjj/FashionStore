@@ -11,5 +11,4 @@ public interface OrderedClothesService{
     OrderedClothes addNewOrderedClothes(OrderedClothes orderedClothes);
     Optional<OrderedClothes> findById(Long id);
     void delete(OrderedClothes orderedClothes);
-//    void updatePrice(Long id, Double price);
 }

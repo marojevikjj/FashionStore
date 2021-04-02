@@ -7,10 +7,10 @@ import java.util.List;
 
 @Data
 @Entity
-public class PostmanOrder {
+public class Postman {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
@@ -20,11 +20,11 @@ public class PostmanOrder {
 
     private Integer count;
 
-    public PostmanOrder(User user, String city) {
+    public Postman(User user, String city) {
         this.user = user;
         this.city = city;
         this.count = 0;
     }
 
-    public PostmanOrder() {}
+    public Postman() {}
 }

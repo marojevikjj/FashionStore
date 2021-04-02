@@ -3,6 +3,7 @@ package onlineshopapp.fashionstore.model;
 import lombok.Data;
 import java.lang.Math;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -37,6 +38,8 @@ public class Clothes {
 
     private int quantitySizeXL;
 
+    private LocalDateTime dateCreated;
+
     public Clothes(String name, String description, String image, String image1, String image2, String image3, double price, double grade, int quantitySizeS, int quantitySizeM, int quantitySizeL, int quantitySizeXL) {
         this.name = name;
         this.description = description;
@@ -50,6 +53,7 @@ public class Clothes {
         this.quantitySizeM = quantitySizeM;
         this.quantitySizeL = quantitySizeL;
         this.quantitySizeXL = quantitySizeXL;
+        this.dateCreated = LocalDateTime.now();
     }
 
     public Clothes(){}

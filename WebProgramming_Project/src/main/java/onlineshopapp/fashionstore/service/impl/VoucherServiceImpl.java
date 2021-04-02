@@ -20,4 +20,9 @@ public class VoucherServiceImpl implements VoucherService {
     public Optional<Voucher> findById(Long id) {
         return voucherRepository.findById(id);
     }
+
+    @Override
+    public Voucher create(String voucherName, int discount) {
+        return this.voucherRepository.save(new Voucher(voucherName,discount));
+    }
 }

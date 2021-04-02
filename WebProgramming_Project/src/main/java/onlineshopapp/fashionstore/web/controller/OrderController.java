@@ -3,6 +3,7 @@ package onlineshopapp.fashionstore.web.controller;
 import onlineshopapp.fashionstore.model.*;
 import onlineshopapp.fashionstore.model.enumerations.OrderStatus;
 import onlineshopapp.fashionstore.service.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,9 +52,9 @@ public class OrderController {
 
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(username);
-        List<PostmanOrder> postman = this.postmanOrderSerivce.findFromRegion(city);
-        PostmanOrder p = postman.get(0);
-        for(PostmanOrder po : postman)
+        List<Postman> postman = this.postmanOrderSerivce.findFromRegion(city);
+        Postman p = postman.get(0);
+        for(Postman po : postman)
             if(po.getCount() < p.getCount())
                 p = po;
         this.orderService.createOrder(name, surname, address, telephone, city, discount, (User) this.userService.loadUserByUsername(username), shoppingCart.getOrderedClothes(), p.getUser());
@@ -75,7 +76,6 @@ public class OrderController {
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(username);
         model.addAttribute("products", shoppingCart.getOrderedClothes());
-//        String message = "!";
 
         return "makeOrder";
     }
@@ -112,28 +112,5 @@ public class OrderController {
         model.addAttribute("error", message);
 
         return "makeOrder";
-    }
-
-    @GetMapping("/postmanOrders")
-    public String getPostmanOrders(Model model, HttpServletRequest req){
-
-        String username = req.getRemoteUser();
-        List<Order> orders = this.orderService.findOrdersByPostman((User) this.userService.loadUserByUsername(username));
-        model.addAttribute("orders", orders);
-        String [] status = {OrderStatus.ORDERED.toString(), OrderStatus.Confirmed.toString(), OrderStatus.Prepared.toString(),
-                OrderStatus.ReceivedByPostman.toString(), OrderStatus.OnYourWay.toString(), OrderStatus.Delivered.toString()};
-        model.addAttribute("status", status);
-
-        return "postmanOrders";
-    }
-
-    @PostMapping("/changeStatus/{id}")
-    public String changeOrderStatus(@PathVariable Long id, @RequestParam String status){
-
-        Order order = this.orderService.findById(id).get();
-        if(!status.equals("Select Status"))
-            this.orderService.changeOrderStatus(id, status);
-
-        return "redirect:/postmanOrders";
     }
 }

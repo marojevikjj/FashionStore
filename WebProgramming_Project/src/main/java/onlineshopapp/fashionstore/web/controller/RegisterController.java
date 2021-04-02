@@ -47,13 +47,9 @@ public class RegisterController {
                            @RequestParam String repeatedPassword,
                            @RequestParam String name,
                            @RequestParam String email,
-                           @RequestParam(required = false) Role role,
                            Model model) {
-        if(role==null) {
-            role = Role.ROLE_USER;
-        }
         try {
-            User user = this.userService.register(name, username,password,repeatedPassword,role,email);
+            User user = this.userService.register(name, username,password,repeatedPassword,Role.ROLE_USER,email);
             ConfirmationToken confirmationToken = new ConfirmationToken(user);
 
             this.confirmationTokenService.save(confirmationToken);

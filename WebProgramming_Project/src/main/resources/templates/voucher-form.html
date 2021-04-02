@@ -1,12 +1,14 @@
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
+    <title>Fashion Store</title>
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"  th:href="@{/styles/style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
           rel="stylesheet">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -40,63 +42,45 @@
 
         </div>
 
-
     </div>
 </div>
 
-<!--------- featured products ------->
-<div class="small-container">
 
-<!--    <div class="row">-->
+<!-------- account-page --------->
+<div class="account-page">
+    <div style="font-size: 18px;
+    color: #28a746;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
 
-<!--        <div class="col-4">-->
-<!--            <p th:each="product : ${products}">-->
-<!--                <i th:text="${product.getClothes().description}"></i>-->
-<!--                <img th:src="${product.getClothes().getImage()}" >-->
-<!--            </p>-->
-<!--            </br>-->
-<!--        </div>-->
-
-<!--    </div>-->
-
-
-    <h2 class="title">List of all orders</h2>
-
-        <div th:if="(${orders} != null)" class="row">
-
-            <div>
-                <table style="margin-left:auto; margin-right:auto;">
-                    <thead>
-                    <tr class="table-sub-heading-color">
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Name </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Surname </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Address </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> City </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Telephone </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Price </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Status </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Postman </th>
-                        <th style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;"> Order Time </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="row-color" th:each="order : ${orders}">
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getName()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getSurname()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getAddress()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getCity()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getTelephone()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getPrice()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getOrderStatus()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getPostman().getName()}"></td>
-                        <td style="padding-left: 20px; padding-right: 20px; padding-bottom: 5px; padding-top: 5px;" th:text="${order.getDate()}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+    padding-right: 210px;
+   " th:if="${success}">You have successfully created a voucher!</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="../images/modeli.png" width="100%" >
             </div>
+            <div class="col-2">
+                <div class="form-container" style="height: 270px!important;">
+                    <div class="form-btn">
+                        <span>Create voucher</span>
+                        <hr id="Indicator">
+                    </div>
 
+                    <form id="VocuherForm" method="post" action="/voucher">
+                        <input type="text" id="voucherName" name="voucherName" class="form-control" placeholder="Name" required=""
+                               autofocus="">
+                        <input type="text" name="discount" class="form-control" placeholder="Discount in percent"
+                               required="">
+                        <button type="submit" class="btn" style="width: 100%">Create voucher</button>
+                        <br>
+                    </form>
+
+                </div>
+            </div>
         </div>
-
+    </div>
 </div>
 
 
@@ -140,23 +124,5 @@
         <p class="copyright">Copyright 2021 - Fashion Store &#169;</p>
     </div>
 </div>
-
-<!------------------ js for toggle menu ------>
-<script>
-    var MenuItems = document.getElementById("MenuItems");
-
-    MenuItems.style.maxHeight = "0px";
-
-    function menutoggle(){
-        if(MenuItems.style.maxHeight == "0px"){
-            MenuItems.style.maxHeight = "200px";
-        }
-        else{
-            MenuItems.style.maxHeight = "0px";
-        }
-    }
-
-</script>
-
 </body>
 </html>

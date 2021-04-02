@@ -23,23 +23,22 @@
                 <ul id="MenuItems">
                     <li><a th:href="@{/home}">Home</a></li>
                     <li><a th:href="@{/products}">Products</a></li>
-                    <li><a th:href="@{/orders}" sec:authorize="isAuthenticated()">My Orders</a></li>
-                    <li><a th:href="@{/postmanOrders}"  sec:authorize="isAuthenticated()">Postman Orders</a></li>
+                    <li><a th:href="@{/orders}"  sec:authorize="hasRole('ROLE_USER')">My Orders</a></li>
+                    <li><a th:href="@{/postman/orders}" sec:authorize="hasRole('ROLE_POSTMAN')">Postman Orders</a></li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
                     <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a></li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <div><i class="fas fa-caret-down"  style="font-size: 30px;color: #555555;"></i></div>
                         <div class="dropdown-content">
-                            <a th:href="@{/login}" sec:authorize="isAuthenticated()">My Account</a>
-                            <a href="/create-account">Create account</a>
+                            <a href="/voucher" sec:authorize="hasRole('ROLE_ADMIN')">Create voucher</a>
+                            <a href="/create-account" sec:authorize="hasRole('ROLE_ADMIN')">Create account</a>
+                            <a href="/admin-calendar" sec:authorize="hasRole('ROLE_ADMIN')">Create event</a>
                             <a href="/logout" sec:authorize="isAuthenticated()">Logout</a>
                         </div>
                     </li>
-<!--                  <li><a th:href="@{/shoppingCart}"  sec:authorize="isAuthenticated()"><img src="../images/kosnicka.png" width="30px" height="30px"></a>-->
-</li>
                 </ul>
             </nav>
-            <img src="../images/menu-icon.png" class="menu-icon" onclick="menutoggle()">
+
         </div>
 
     </div>
@@ -82,11 +81,10 @@
                 <option th:value="L" th:text="L"></option>
                 <option th:value="XL" th:text="XL"></option>
 
-            <h4 th:text="'$' + ${product.price}"></h4>
-
+            </select>
 
             <input th:name="quantity" type="number" min="1" th:value="1">
-<!--            <a th:href="@{/shoppingCart/add/{id} (id=${product.id})}" class="btn">Add To Cart</a>-->
+
                 <button class="btn" type="submit">
                     <i>Add product to cart</i>
                 </button>
@@ -104,10 +102,11 @@
             </form>
 
 
-            <h3>Product Description  <i class="fa fa-indent" aria-hidden="true"></i></h3>
+            <h3>Product Description:</h3>
             <br>
             <p th:text="${product.description}"></p>
         </div>
+
 <!--        </form>-->
 
 
@@ -169,6 +168,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -187,13 +187,13 @@
 
 <!--------- products ------->
 <div class="small-container">
-    <!--- <h2 class="title">All Products</h2> -->
 
 
-    <div class="row">
-        <div class="col-4">
-            <img src="../images/product1.jpg">
-            <h4>Mock croc crossbody bag</h4>
+
+    <div class="row" th:action="@{/products/{id} (id=${product.getId()})}" th:method="POST">
+        <div class="col-4" th:each="produkt : ${produkti}">
+            <a th:href="@{/products/{id} (id=${produkt.getId()})}"><img th:src="${produkt.image}"></a>
+            <a th:href="@{/products/{id} (id=${produkt.getId()})}"><h4 th:text="${produkt.name}" th:href="@{/product-details}"></h4></a>
             <div class="rating">
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -201,10 +201,10 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
-            <p>$55.00</p>
+            <p th:text="'$' + ${produkt.price}"></p>
         </div>
-
-        <div class="col-4">
+    </div>
+      <!--  <div class="col-4">
             <img src="../images/product2.jpg">
             <h4>Checked blazer</h4>
             <div class="rating">
@@ -241,8 +241,8 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
             </div>
             <p>$100.00</p>
-        </div>
-    </div>
+        </div>   --->
+
 
 
 </div>
