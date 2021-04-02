@@ -1,6 +1,7 @@
 package onlineshopapp.fashionstore.service.impl;
 
 import onlineshopapp.fashionstore.model.Clothes;
+import onlineshopapp.fashionstore.model.ClothesGrade;
 import onlineshopapp.fashionstore.model.exceptions.InvalidClothesIdException;
 import onlineshopapp.fashionstore.repository.ClothesRepository;
 import onlineshopapp.fashionstore.repository.ProductRepository;
@@ -58,7 +59,7 @@ public class ClothesServiceImpl implements ClothesService {
         product.setImage2(image2);
         product.setImage3(image3);
         product.setPrice(price);
-        product.setGrade(grade);
+        product.setGrade((int)grade);
         product.setQuantitySizeS(quantitySizeS);
         product.setQuantitySizeM(quantitySizeM);
         product.setQuantitySizeL(quantitySizeL);
@@ -79,6 +80,16 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
+    public void updateFinalGrade(Clothes clothes, List<ClothesGrade> clothesGrades) {
+
+        double total = 0.0;
+        for(ClothesGrade cg : clothesGrades)
+            total += cg.getGrade();
+
+        clothes.setGrade((int)(total/clothesGrades.size()));
+        this.clothesRepository.save(clothes);
+    }
+
     public List<Clothes> listProductsByName(String name) {
         String nameLike = "%"+name+"%";
 
@@ -104,5 +115,6 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public List<Clothes> listAll() {
         return this.clothesRepository.findAll();
+
     }
 }

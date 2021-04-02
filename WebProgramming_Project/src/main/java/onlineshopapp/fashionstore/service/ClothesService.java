@@ -1,7 +1,11 @@
 package onlineshopapp.fashionstore.service;
 
 import onlineshopapp.fashionstore.model.Clothes;
+
+import onlineshopapp.fashionstore.model.ClothesGrade;
+
 import org.springframework.data.domain.Page;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +23,9 @@ public interface ClothesService {
 
     Optional<Clothes> findOptionalById(Long id);
 
+
+    void updateFinalGrade(Clothes clothes, List<ClothesGrade> clothesGrades);
+
     List<Clothes> listProductsByName(String name);
 
     List<Clothes> sortDescendingByDate();
@@ -28,4 +35,5 @@ public interface ClothesService {
     List<Clothes> sortDescendingByGrade();
 
     List<Clothes> listAll();
+
 }
