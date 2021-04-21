@@ -106,13 +106,9 @@ public class ProductsController {
         model.addAttribute("product", this.clothesService.findById(id));
 
         List<Clothes> prod = this.clothesService.listAll();
-        List<Clothes> produkti = new ArrayList<>();
+        List<Clothes> produkti = this.getClothes(prod, 4);
         Collections.shuffle(prod);
 
-        for(int i = 0; i < 4; i++){
-            Clothes element = prod.get(i);
-            produkti.add(element);
-        }
         model.addAttribute("produkti", produkti);
         return "product-details";
     }
@@ -193,7 +189,6 @@ public class ProductsController {
         this.commentUserLikeService.createOrUpdate(1, 0, user, clothesComment, commentUserLike);
         this.clothesCommentService.updateLikes(this.commentUserLikeService.getTotalLikesFromComment(clothesComment),
                 this.commentUserLikeService.getTotalDislikesFromComment(clothesComment), clothesComment);
-        System.out.println("TUKAAAAAAAAAAAAAAA");
 
         return "redirect:/products/" + clothesComment.getClothes().getId();
     }
@@ -208,8 +203,19 @@ public class ProductsController {
         this.commentUserLikeService.createOrUpdate(0, 1, user, clothesComment, commentUserLike);
         this.clothesCommentService.updateLikes(this.commentUserLikeService.getTotalLikesFromComment(clothesComment),
                 this.commentUserLikeService.getTotalDislikesFromComment(clothesComment), clothesComment);
-        System.out.println("TUKAAAAAAAAAAAAAAA");
 
         return "redirect:/products/" + clothesComment.getClothes().getId();
+    }
+
+    private List<Clothes> getClothes(List<Clothes> c, int n){
+        int tmp = 0;
+        List<Clothes> listOfClothes = new ArrayList<>();
+        for(Clothes cl : c){
+            listOfClothes.add(cl);
+            if(tmp == n-1)
+                break;
+            tmp++;
+        }
+        return listOfClothes;
     }
 }
