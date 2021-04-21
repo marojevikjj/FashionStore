@@ -27,33 +27,41 @@ public class HomeController {
 
         List<Clothes> fp = this.clothesService.sortDescendingByGrade();
         Collections.shuffle(fp);
-        List<Clothes> featuredProducts = new ArrayList<>();
-
-        for(int i = 0; i < 4; i++){
-            Clothes element1 = fp.get(i);
-            featuredProducts.add(element1);
-        }
+        List<Clothes> featuredProducts = this.getClothes(fp, 4);
 
         List<Clothes> lp = this.clothesService.sortDescendingByDate();
-        List<Clothes> latestProducts = new ArrayList<>();
-
-        for(int i = 0; i < 8; i++){
-            Clothes element = lp.get(i);
-            latestProducts.add(element);
-        }
+        List<Clothes> latestProducts = this.getClothes(lp, 8);
 
         List<Clothes> clothes = this.clothesService.listAll();
         Random rand = new Random();
-        Clothes exclusive = clothes.get(rand.nextInt(lp.size()));
+        Clothes exclusive =null;
+        if(lp.size() >= clothes.size())
+            exclusive = clothes.get(rand.nextInt(clothes.size()));
+        else
+            exclusive = clothes.get(rand.nextInt(lp.size()));
 
         model.addAttribute("featuredProducts", featuredProducts);
         model.addAttribute("latestProducts", latestProducts);
         model.addAttribute("exclusive", exclusive);
+
         return "home";
     }
 
     @GetMapping("/access_denied")
     public String getAccessDeniedPage(Model model) {
         return "access_denied";
+    }
+
+
+    private List<Clothes> getClothes(List<Clothes> c, int n){
+        int tmp = 0;
+        List<Clothes> listOfClothes = new ArrayList<>();
+        for(Clothes cl : c){
+            listOfClothes.add(cl);
+            if(tmp == n-1)
+                break;
+            tmp++;
+        }
+        return listOfClothes;
     }
 }

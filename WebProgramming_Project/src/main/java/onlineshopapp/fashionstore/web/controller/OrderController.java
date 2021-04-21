@@ -36,7 +36,8 @@ public class OrderController {
     public String showOrderPage(Model model, HttpServletRequest req) {
 
         String username = req.getRemoteUser();
-        List<Order> orders = this.orderService.findOrdersByUser((User) this.userService.loadUserByUsername(username));
+        User user = (User) this.userService.loadUserByUsername(username);
+        List<Order> orders = this.orderService.findOrdersByUser(user);
         model.addAttribute("orders", orders);
 
         return "orders";
@@ -53,7 +54,8 @@ public class OrderController {
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getActiveShoppingCart(username);
         List<Postman> postman = this.postmanOrderSerivce.findFromRegion(city);
-        Postman p = postman.get(0);
+        System.out.println(postman);
+        Postman p = postman.stream().findAny().get();
         for(Postman po : postman)
             if(po.getCount() < p.getCount())
                 p = po;
