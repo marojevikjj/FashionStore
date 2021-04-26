@@ -109,7 +109,7 @@ public class OrderController {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        Order order = this.orderService.findById(id).get();//this.orderService.findOrdersByUser((User) this.userService.loadUserByUsername(username));
+        Order order = this.orderService.findById(id).get();
 
         PDFExport exporter = new PDFExport(order);
         exporter.export(response);

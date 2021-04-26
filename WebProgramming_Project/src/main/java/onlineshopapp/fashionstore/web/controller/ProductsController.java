@@ -70,28 +70,6 @@ public class ProductsController {
 
     }
 
-//    @GetMapping("/showMoreComments/{id}")
-//    public String getAllComments(@PathVariable Long id, Model model, HttpServletRequest req){
-//        String username = req.getRemoteUser();
-//        Clothes clothes = this.clothesService.findById(id);
-//        User user = (User) this.userService.loadUserByUsername(username);
-//        model.addAttribute("comments", this.clothesCommentService.findCommentsByProduct(id));
-//
-//        if(this.clothesGradeService.findByUserAndClothes(user, clothes) != null)
-//            model.addAttribute("grade", this.clothesGradeService.findByUserAndClothes(user, clothes).getGrade());
-//        else
-//            model.addAttribute("grade", null);
-//
-//        model.addAttribute("product", this.clothesService.findById(id));
-//
-//        List<Clothes> prod = this.clothesService.listAll();
-//        List<Clothes> produkti = this.getClothes(prod, 4);
-//        Collections.shuffle(prod);
-//
-//        model.addAttribute("produkti", produkti);
-//        return "product-details";
-//    }
-
     @GetMapping("/searchProducts")
     public String searchProducts(@RequestParam(required = false) String nameSearch, Model model){
 
@@ -117,8 +95,7 @@ public class ProductsController {
         String username = req.getRemoteUser();
         Clothes clothes = this.clothesService.findById(id);
         User user = (User) this.userService.loadUserByUsername(username);
-//        List<ClothesComment> comments = getLast(this.clothesCommentService.findCommentsByProduct(id));
-//        model.addAttribute("comments", comments);
+
         model.addAttribute("comments", this.clothesCommentService.findCommentsByProduct(id));
         if(this.clothesGradeService.findByUserAndClothes(user, clothes) != null)
             model.addAttribute("grade", this.clothesGradeService.findByUserAndClothes(user, clothes).getGrade());
@@ -193,9 +170,10 @@ public class ProductsController {
 
         if(cg != null)
             this.clothesGradeService.updateGrade(cg, grade);
-        else
+        else if(grade >= 0.0 && grade <= 5.0) {
             this.clothesGradeService.addGrade(user, clothes, grade);
-        this.clothesService.updateFinalGrade(clothes, this.clothesGradeService.getGradesByClothes(clothes));
+            this.clothesService.updateFinalGrade(clothes, this.clothesGradeService.getGradesByClothes(clothes));
+        }
 
         return "redirect:/products/" + id;
 
