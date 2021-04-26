@@ -15,12 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import javax.xml.stream.events.Comment;
+import java.util.*;
 
 
 @Controller
@@ -72,6 +70,28 @@ public class ProductsController {
 
     }
 
+//    @GetMapping("/showMoreComments/{id}")
+//    public String getAllComments(@PathVariable Long id, Model model, HttpServletRequest req){
+//        String username = req.getRemoteUser();
+//        Clothes clothes = this.clothesService.findById(id);
+//        User user = (User) this.userService.loadUserByUsername(username);
+//        model.addAttribute("comments", this.clothesCommentService.findCommentsByProduct(id));
+//
+//        if(this.clothesGradeService.findByUserAndClothes(user, clothes) != null)
+//            model.addAttribute("grade", this.clothesGradeService.findByUserAndClothes(user, clothes).getGrade());
+//        else
+//            model.addAttribute("grade", null);
+//
+//        model.addAttribute("product", this.clothesService.findById(id));
+//
+//        List<Clothes> prod = this.clothesService.listAll();
+//        List<Clothes> produkti = this.getClothes(prod, 4);
+//        Collections.shuffle(prod);
+//
+//        model.addAttribute("produkti", produkti);
+//        return "product-details";
+//    }
+
     @GetMapping("/searchProducts")
     public String searchProducts(@RequestParam(required = false) String nameSearch, Model model){
 
@@ -97,6 +117,8 @@ public class ProductsController {
         String username = req.getRemoteUser();
         Clothes clothes = this.clothesService.findById(id);
         User user = (User) this.userService.loadUserByUsername(username);
+//        List<ClothesComment> comments = getLast(this.clothesCommentService.findCommentsByProduct(id));
+//        model.addAttribute("comments", comments);
         model.addAttribute("comments", this.clothesCommentService.findCommentsByProduct(id));
         if(this.clothesGradeService.findByUserAndClothes(user, clothes) != null)
             model.addAttribute("grade", this.clothesGradeService.findByUserAndClothes(user, clothes).getGrade());
@@ -217,5 +239,20 @@ public class ProductsController {
             tmp++;
         }
         return listOfClothes;
+    }
+
+
+    private List<ClothesComment> getLast(List<ClothesComment> comments){
+        List<ClothesComment> latestComments = new ArrayList<>();
+        Collections.reverse(comments);
+        int temp = 0;
+        for(ClothesComment c : comments){
+            latestComments.add(c);
+            if(temp == 2)
+                break;
+            temp++;
+        }
+        Collections.reverse(latestComments);
+        return latestComments;
     }
 }
