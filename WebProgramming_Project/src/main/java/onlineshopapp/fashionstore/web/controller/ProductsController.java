@@ -168,7 +168,7 @@ public class ProductsController {
         User user = (User) this.userService.loadUserByUsername(username);
         ClothesGrade cg = this.clothesGradeService.findByUserAndClothes(user, clothes);
 
-        if(cg != null)
+        if(cg != null && (grade >= 0.0 && grade <= 5.0))
             this.clothesGradeService.updateGrade(cg, grade);
         else if(grade >= 0.0 && grade <= 5.0) {
             this.clothesGradeService.addGrade(user, clothes, grade);
