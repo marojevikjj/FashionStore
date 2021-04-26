@@ -133,7 +133,10 @@
     </form>
     </section>
 
-    <div th:each="comment : ${comments}" class="row">
+    <p id="rightHere">
+        <a th:href="@{/products/showMoreComments/{id} (id=${product.getId()})}"
+          style="text-align: center" class="see-more">Show all comments</a>
+        <div th:each="comment : ${comments}" class="row">
         <div class="col-md-8">
             <div class="media g-mb-30 media-comment">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -168,8 +171,8 @@
                 </div>
             </div>
         </div>
-
-    </div>
+        </div>
+    </p>
 </div>
 
 
@@ -204,46 +207,6 @@
             <p th:text="'$' + ${produkt.price}"></p>
         </div>
     </div>
-      <!--  <div class="col-4">
-            <img src="../images/product2.jpg">
-            <h4>Checked blazer</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-            </div>
-            <p>$125.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product3.jpg">
-            <h4>Pink high-heel shoes</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$75.00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="../images/product4.jpg">
-            <h4>Long Oxford jumpsuit</h4>
-            <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <p>$100.00</p>
-        </div>   --->
-
-
 
 </div>
 
@@ -330,6 +293,11 @@
     }
 
 </script>
+
+<!--comment section-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
 </body>

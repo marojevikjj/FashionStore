@@ -1,14 +1,32 @@
 package onlineshopapp.fashionstore.web.controller;
-
+import com.itextpdf.html2pdf.HtmlConverter;
+import com.lowagie.text.DocumentException;
 import onlineshopapp.fashionstore.model.*;
-import onlineshopapp.fashionstore.model.enumerations.OrderStatus;
 import onlineshopapp.fashionstore.service.*;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import javax.naming.Context;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -21,14 +39,18 @@ public class OrderController {
     private final VoucherService voucherService;
     private final OrderService orderService;
     private final PostmanOrderSerivce postmanOrderSerivce;
+    private final ClothesService clothesService;
+//    private PdfServiceImpl pdfService;
 
-    public OrderController(UserService userService, ShoppingCartService shoppingCartService, UserVoucherService userVoucherService, VoucherService voucherService, OrderService orderService, PostmanOrderSerivce postmanOrderSerivce) {
+    public OrderController(UserService userService, ShoppingCartService shoppingCartService, UserVoucherService userVoucherService, VoucherService voucherService, OrderService orderService, PostmanOrderSerivce postmanOrderSerivce, ClothesService clothesService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
         this.userVoucherService = userVoucherService;
         this.voucherService = voucherService;
         this.orderService = orderService;
         this.postmanOrderSerivce = postmanOrderSerivce;
+        this.clothesService = clothesService;
+//        this.pdfService = pdfService;
     }
 
 
@@ -59,14 +81,38 @@ public class OrderController {
         for(Postman po : postman)
             if(po.getCount() < p.getCount())
                 p = po;
-        this.orderService.createOrder(name, surname, address, telephone, city, discount, (User) this.userService.loadUserByUsername(username), shoppingCart.getOrderedClothes(), p.getUser());
+        Order o = this.orderService.createOrder(name, surname, address, telephone, city, discount, (User) this.userService.loadUserByUsername(username), shoppingCart.getOrderedClothes(), p.getUser());
+
+//        List<PdfOrder> pdfOrders = new ArrayList<PdfOrder>(0);
+//        for(OrderedClothes oc : o.getOrderedClothes()){
+//            pdfOrders.add(new PdfOrder(oc.getQuantity(), oc.getPrice(), oc.getSize(), p.getUser().getName(), p.getUser().getEmail(), oc.getClothes().getName()));
+//        }
+
         this.shoppingCartService.deleteOrderedClothes(shoppingCart);
         List<Order> orders = this.orderService.findOrdersByUser((User) this.userService.loadUserByUsername(username));
         model.addAttribute("orders", orders);
         if(voucher != null && total > discount)
             this.userVoucherService.delete(this.voucherService.findById(voucher).get(), (User) this.userService.loadUserByUsername(username));
 
+
         return "redirect:/orders";
+    }
+
+    @GetMapping("/download-pdf/{id}")
+    public void pdfOrder(HttpServletResponse response, HttpServletRequest req, @PathVariable Long id) throws IOException, DocumentException {
+        String username = req.getRemoteUser();
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        Order order = this.orderService.findById(id).get();//this.orderService.findOrdersByUser((User) this.userService.loadUserByUsername(username));
+
+        PDFExport exporter = new PDFExport(order);
+        exporter.export(response);
     }
 
 
@@ -115,4 +161,6 @@ public class OrderController {
 
         return "makeOrder";
     }
+
+
 }
