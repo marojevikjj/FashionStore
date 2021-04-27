@@ -82,11 +82,7 @@
             <img th:src="${fp.image}">
             <h4 th:text="${fp.name}" th:href="@{/product-details}"></h4>
             <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i th:each="i : ${#numbers.sequence(1, fp.getGrade())}" class="fa fa-star" aria-hidden="true"></i>
             </div>
             <p th:text="'$' + ${fp.price}"></p>
         </div>
@@ -101,11 +97,7 @@
             <a th:href="@{/products/{id} (id=${lp.getId()})}"><img th:src="${lp.image}"></a>
             <a th:href="@{/products/{id} (id=${lp.getId()})}"><h4 th:text="${lp.name}" th:href="@{/product-details}"></h4></a>
             <div class="rating">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
+                <i th:each="i : ${#numbers.sequence(1, lp.getGrade())}" class="fa fa-star" aria-hidden="true"></i>
             </div>
             <p th:text="'$' + ${lp.price}"></p>
         </div>

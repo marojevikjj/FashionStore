@@ -36,7 +36,7 @@ public class User implements UserDetails {
 
     private boolean isCredentialsNonExpired = true;
 
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
 
     @Column(name = "created_on")
     private Date createdOn;
