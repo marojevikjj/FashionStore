@@ -3,6 +3,7 @@ package onlineshopapp.fashionstore.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -27,4 +28,17 @@ public class ClothesGrade {
     }
 
     public ClothesGrade() {}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClothesGrade that = (ClothesGrade) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

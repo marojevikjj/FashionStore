@@ -21,18 +21,19 @@ public class ClothesGradeServiceImpl implements ClothesGradeService {
 
     @Override
     public ClothesGrade findByUserAndClothes(User user, Clothes clothes) {
+
         return this.clothesGradeRepository.findClothesGradeByUserAndClothes(user, clothes);
     }
 
     @Override
-    public void updateGrade(ClothesGrade cg, double grade) {
+    public ClothesGrade updateGrade(ClothesGrade cg, double grade) {
         cg.setGrade(grade);
-        this.clothesGradeRepository.save(cg);
+        return this.clothesGradeRepository.save(cg);
     }
 
     @Override
-    public void addGrade(User user, Clothes clothes, double grade) {
-        this.clothesGradeRepository.save(new ClothesGrade(user, clothes, grade));
+    public ClothesGrade addGrade(User user, Clothes clothes, double grade) {
+        return this.clothesGradeRepository.save(new ClothesGrade(user, clothes, grade));
     }
 
     @Override
