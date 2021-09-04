@@ -3,6 +3,7 @@ package onlineshopapp.fashionstore.service.impl;
 import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.model.ClothesComment;
 import onlineshopapp.fashionstore.model.User;
+import onlineshopapp.fashionstore.model.exceptions.ClothesCommentNotFound;
 import onlineshopapp.fashionstore.repository.ClothesCommentRepository;
 import onlineshopapp.fashionstore.service.ClothesCommentService;
 import org.springframework.stereotype.Service;
@@ -28,20 +29,22 @@ public class ClothesCommentServiceImpl implements ClothesCommentService {
     public List<ClothesComment> findCommentsByProduct(Long id) {
         List<ClothesComment> comments = this.clothesCommentRepository.findAllByClothes_Id(id);
         if(comments != null){
-            comments.sort(Comparator.comparing(o -> o.getDate()));
+            comments.sort(Comparator.comparing(ClothesComment::getDate));
         }
         return comments;
     }
 
     @Override
-    public ClothesComment findById(Long id) {
-        return this.clothesCommentRepository.findById(id).get();
+    public ClothesComment findById(Long id) throws ClothesCommentNotFound {
+        return this.clothesCommentRepository.findById(id).orElseThrow(() -> new ClothesCommentNotFound("not found"));
     }
 
     @Override
-    public void updateLikes(int l, int d, ClothesComment clothesComment) {
+    public ClothesComment updateLikes(int l, int d, ClothesComment clothesComment) throws ClothesCommentNotFound {
+        if(clothesComment == null)
+            throw new ClothesCommentNotFound("not found");
         clothesComment.setTotalLikes(l);
         clothesComment.setTotalDislikes(d);
-        this.clothesCommentRepository.save(clothesComment);
+        return this.clothesCommentRepository.save(clothesComment);
     }
 }

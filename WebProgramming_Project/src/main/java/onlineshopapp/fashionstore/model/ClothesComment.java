@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -41,5 +42,18 @@ public class ClothesComment {
         this.clothes = clothes;
         this.totalLikes = totalLikes;
         this.totalDislikes = totalDislikes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClothesComment that = (ClothesComment) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

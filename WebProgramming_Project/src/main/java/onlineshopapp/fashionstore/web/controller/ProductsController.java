@@ -2,6 +2,7 @@ package onlineshopapp.fashionstore.web.controller;
 
 
 import onlineshopapp.fashionstore.model.*;
+import onlineshopapp.fashionstore.model.exceptions.ClothesCommentNotFound;
 import onlineshopapp.fashionstore.service.*;
 
 import onlineshopapp.fashionstore.model.Clothes;
@@ -15,9 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.stream.events.Comment;
 import java.util.*;
 
 
@@ -180,7 +179,7 @@ public class ProductsController {
     }
 
     @PostMapping("/{id}/commentLike")
-    public String likeComment(@PathVariable Long id, HttpServletRequest req){
+    public String likeComment(@PathVariable Long id, HttpServletRequest req) throws ClothesCommentNotFound {
 
         String username = req.getRemoteUser();
         User user = (User) this.userService.loadUserByUsername(username);
@@ -194,7 +193,7 @@ public class ProductsController {
     }
 
     @PostMapping("/{id}/commentDislike")
-    public String dislikeComment(@PathVariable Long id, HttpServletRequest req){
+    public String dislikeComment(@PathVariable Long id, HttpServletRequest req) throws ClothesCommentNotFound {
 
         String username = req.getRemoteUser();
         User user = (User) this.userService.loadUserByUsername(username);
