@@ -8,6 +8,8 @@ import onlineshopapp.fashionstore.model.enumerations.ShoppingCartStatus;
 import onlineshopapp.fashionstore.model.exceptions.ProductNotFoundException;
 import onlineshopapp.fashionstore.model.exceptions.ShoppingCartNotFoundException;
 import onlineshopapp.fashionstore.model.exceptions.UserNotFoundException;
+import onlineshopapp.fashionstore.repository.ClothesRepository;
+import onlineshopapp.fashionstore.repository.OrderedClothesRepository;
 import onlineshopapp.fashionstore.repository.ShoppingCartRepository;
 import onlineshopapp.fashionstore.repository.UserRepository;
 import onlineshopapp.fashionstore.service.ClothesService;
@@ -22,14 +24,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
     private final UserRepository userRepository;
-    private final ClothesService clothesService;
-    private final OrderedClothesService orderedClothesService;
+    private final ClothesRepository clothesRepository;
+    private final OrderedClothesRepository orderedClothesRepository;
 
-    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, UserRepository userRepository, ClothesService clothesService, OrderedClothesService orderedClothesService) {
+    public ShoppingCartServiceImpl(ShoppingCartRepository shoppingCartRepository, UserRepository userRepository, ClothesRepository clothesRepository, OrderedClothesRepository orderedClothesRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.userRepository = userRepository;
-        this.clothesService = clothesService;
-        this.orderedClothesService = orderedClothesService;
+        this.clothesRepository = clothesRepository;
+        this.orderedClothesRepository = orderedClothesRepository;
     }
 
     @Override
@@ -37,8 +39,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = this.getActiveShoppingCart(username);
         boolean flag = false;
         User user = this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-        Clothes c = this.clothesService.findOptionalById(clothes.getClothes().getId())
+        Clothes c = this.clothesRepository.findById(clothes.getClothes().getId())
                 .orElseThrow(() -> new ProductNotFoundException(clothes.getClothes().getId()));
+
         for(OrderedClothes oc : shoppingCart.getOrderedClothes()){
             if(oc.getUserId().equals(user.getId()) && oc.getClothes().getId().equals(clothes.getClothes().getId()) && oc.getSize().equals(clothes.getSize())){
                 oc.setQuantity(oc.getQuantity() + clothes.getQuantity());
@@ -49,7 +52,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
         if(!flag)
         {
-            OrderedClothes orderedClothes = this.orderedClothesService.addNewOrderedClothes(clothes);
+            OrderedClothes orderedClothes = this.orderedClothesRepository.save(clothes);
+
             shoppingCart.getOrderedClothes().add(orderedClothes);
         }
 
