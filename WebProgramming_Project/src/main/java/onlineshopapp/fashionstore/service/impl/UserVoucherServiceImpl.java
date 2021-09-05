@@ -33,18 +33,18 @@ public class UserVoucherServiceImpl implements UserVoucherService {
     }
 
     @Override
-    public void delete(Voucher voucher, User user) {
+    public UserVoucher delete(Voucher voucher, User user) {
         List<UserVoucher> vouchers = this.userVoucherRepository.findUserVouchersByUser(user);
         for(UserVoucher uv : vouchers){
-            if(uv.getVoucher() == voucher){
+            if(uv.getVoucher().equals(voucher)){
                 uv.setQuantity(uv.getQuantity() - 1);
                 if(uv.getQuantity() == 0){
                     this.userVoucherRepository.delete(uv);
-                    break;
+                    return uv;
                 }
-                this.userVoucherRepository.save(uv);
-                break;
+                return this.userVoucherRepository.save(uv);
             }
         }
+        return null;
     }
 }

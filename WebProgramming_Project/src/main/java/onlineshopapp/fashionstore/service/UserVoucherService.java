@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface UserVoucherService {
     UserVoucher searchByUserAndVoucher(User user, Optional<Voucher> voucher);
-    void delete(Voucher voucher, User user);
+    UserVoucher delete(Voucher voucher, User user);
 }
