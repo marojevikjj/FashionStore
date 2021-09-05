@@ -25,7 +25,7 @@ public class CommentUserLikeServiceImpl implements CommentUserLikeService {
     }
 
     @Override
-    public void createOrUpdate(int like, int dislike, User user, ClothesComment clothesComment, Optional<CommentUserLike> commentUserLike) {
+    public CommentUserLike createOrUpdate(int like, int dislike, User user, ClothesComment clothesComment, Optional<CommentUserLike> commentUserLike) {
 
         CommentUserLike c;
         if(commentUserLike.isPresent())
@@ -37,6 +37,7 @@ public class CommentUserLikeServiceImpl implements CommentUserLikeService {
         else c = new CommentUserLike(like, dislike, user, clothesComment);
 
         this.commentUserLikeRepository.save(c);
+        return c;
     }
 
     @Override

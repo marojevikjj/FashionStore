@@ -4,6 +4,7 @@ import onlineshopapp.fashionstore.model.User;
 import onlineshopapp.fashionstore.model.UserVoucher;
 import onlineshopapp.fashionstore.model.Voucher;
 import onlineshopapp.fashionstore.repository.UserVoucherRepository;
+import onlineshopapp.fashionstore.service.UserVoucherService;
 import onlineshopapp.fashionstore.service.impl.UserVoucherServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +24,7 @@ public class UserVoucherTest {
     @Mock
     private UserVoucherRepository userVoucherRepository;
 
-    private UserVoucherServiceImpl service;
+    private UserVoucherService service;
 
     @Before
     public void init() {

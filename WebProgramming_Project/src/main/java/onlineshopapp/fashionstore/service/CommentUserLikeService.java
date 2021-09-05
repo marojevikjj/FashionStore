@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface CommentUserLikeService {
     Optional<CommentUserLike> findByUerAndComment(User user, ClothesComment clothesComment);
-    void createOrUpdate(int like, int dislike, User user, ClothesComment clothesComment, Optional<CommentUserLike> commentUserLike);
+    CommentUserLike createOrUpdate(int like, int dislike, User user, ClothesComment clothesComment, Optional<CommentUserLike> commentUserLike);
     int getTotalLikesFromComment(ClothesComment clothesComment);
     int getTotalDislikesFromComment(ClothesComment clothesComment);
 }

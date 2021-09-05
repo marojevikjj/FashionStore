@@ -1,6 +1,7 @@
 package onlineshopapp.fashionstore.junit;
 import onlineshopapp.fashionstore.model.Voucher;
 import onlineshopapp.fashionstore.repository.VoucherRepository;
+import onlineshopapp.fashionstore.service.VoucherService;
 import onlineshopapp.fashionstore.service.impl.VoucherServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +19,7 @@ public class VoucherTest {
     @Mock
     private VoucherRepository voucherRepository;
 
-    private VoucherServiceImpl service;
+    private VoucherService service;
 
     @Before
     public void init() {
