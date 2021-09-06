@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String email) {
         this.userRepository.findByEmailIgnoreCase(email);
-        return this.userRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new UsernameAlreadyExistsException(email));
+        return this.userRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new InvalidArgumentsException());
     }
 
     @Override
