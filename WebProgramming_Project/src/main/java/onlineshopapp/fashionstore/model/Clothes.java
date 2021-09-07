@@ -1,9 +1,10 @@
 package onlineshopapp.fashionstore.model;
 
 import lombok.Data;
-import java.lang.Math;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -57,4 +58,17 @@ public class Clothes {
     }
 
     public Clothes(){}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clothes clothes = (Clothes) o;
+        return Objects.equals(id, clothes.id) && Objects.equals(name, clothes.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }

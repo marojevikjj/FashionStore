@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -84,5 +85,18 @@ public class User implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return isAccountNonExpired == user.isAccountNonExpired && isAccountNonLocked == user.isAccountNonLocked && isCredentialsNonExpired == user.isCredentialsNonExpired && isEnabled == user.isEnabled && Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && role == user.role && Objects.equals(email, user.email) && Objects.equals(resetToken, user.resetToken);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, username, password, role, email, isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled, resetToken);
     }
 }

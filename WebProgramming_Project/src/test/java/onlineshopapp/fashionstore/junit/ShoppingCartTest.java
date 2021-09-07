@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class ShoppingCartTest {
 
     @Before
     public void init() {
+
+        MockitoAnnotations.initMocks(this);
 
         User user1 = new User();
         user1.setUsername("User 1");

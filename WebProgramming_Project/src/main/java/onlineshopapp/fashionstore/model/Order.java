@@ -5,8 +5,8 @@ import onlineshopapp.fashionstore.model.enumerations.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -56,5 +56,18 @@ public class Order {
         this.price = price;
         this.postman = postman;
         this.date = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Double.compare(order.price, price) == 0 && Objects.equals(id, order.id) && Objects.equals(user, order.user) && Objects.equals(postman, order.postman) && Objects.equals(orderedClothes, order.orderedClothes) && orderStatus == order.orderStatus && Objects.equals(address, order.address) && Objects.equals(telephone, order.telephone) && Objects.equals(name, order.name) && Objects.equals(surname, order.surname) && Objects.equals(city, order.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, postman, orderedClothes, orderStatus, address, telephone, name, surname, city, price);
     }
 }
