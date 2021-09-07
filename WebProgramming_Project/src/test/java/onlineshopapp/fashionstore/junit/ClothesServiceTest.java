@@ -54,24 +54,24 @@ public class ClothesServiceTest {
 
         List<Clothes> lista = List.of(c, c1);
         List<Clothes> clothes = List.of(c);
-        when(clothesRepository.findAll()).thenReturn(clothes);
-        when(clothesRepository.findAllByNameLike("%"+"name"+"%")).thenReturn(clothes);
+        Mockito.when(clothesRepository.findAll()).thenReturn(clothes);
+        Mockito.when(clothesRepository.findAllByNameLike("%"+"name"+"%")).thenReturn(clothes);
 
         Page<Clothes> clothes1 = new PageImpl<>(List.of(c));
-        when(productRepository.findAll(any(Pageable.class))).thenReturn(clothes1);
+        Mockito.when(productRepository.findAll(any(Pageable.class))).thenReturn(clothes1);
 
         Optional<Clothes> clothes2 = Optional.of(c);
-        when(clothesRepository.findById((long)6)).thenReturn(clothes2);
+        Mockito.when(clothesRepository.findById((long)6)).thenReturn(clothes2);
 
         Clothes clothes3 = new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0);
-        when(clothesRepository.save(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0))).thenReturn(clothes3);
+        Mockito.when(clothesRepository.save(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0))).thenReturn(clothes3);
 
         Optional<Clothes> cl = Optional.of(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0));
-        when(clothesRepository.findById((long)10)).thenReturn(cl);
+        Mockito.when(clothesRepository.findById((long)10)).thenReturn(cl);
 
-        when(clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "dateCreated"))).thenReturn(lista);
-        when(clothesRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(lista);
-        when(clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "grade"))).thenReturn(lista);
+        Mockito.when(clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "dateCreated"))).thenReturn(lista);
+        Mockito.when(clothesRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))).thenReturn(lista);
+        Mockito.when(clothesRepository.findAll(Sort.by(Sort.Direction.DESC, "grade"))).thenReturn(lista);
 
         this.service = Mockito.spy(new ClothesServiceImpl(this.clothesRepository, this.productRepository));
     }
@@ -225,7 +225,7 @@ public class ClothesServiceTest {
 
         service.updateFinalGrade(clothes, clothesGrades);
 
-        verify(clothesRepository).save(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0));
+        Mockito.verify(clothesRepository).save(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0));
     }
 
 }

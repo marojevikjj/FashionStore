@@ -16,7 +16,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderedClothesService {
@@ -35,8 +34,8 @@ public class OrderedClothesService {
         Optional<OrderedClothes> orderedClothes = Optional.of(new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, (long)6));
 
 
-        when(orderedClothesRepository.save(new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, (long)6))).thenReturn(orderedClothes1);
-        when(orderedClothesRepository.findById((long)6)).thenReturn(orderedClothes);
+        Mockito.when(orderedClothesRepository.save(new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, (long)6))).thenReturn(orderedClothes1);
+        Mockito.when(orderedClothesRepository.findById((long)6)).thenReturn(orderedClothes);
 
         this.service = Mockito.spy(new OrderedClothesServiceImpl(this.orderedClothesRepository));
     }
@@ -63,7 +62,7 @@ public class OrderedClothesService {
 
         OrderedClothes orderedClothes = new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, (long)6);
         service.delete(orderedClothes);
-        
+
         verify(orderedClothesRepository).delete(new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, (long)6));
     }
 }
