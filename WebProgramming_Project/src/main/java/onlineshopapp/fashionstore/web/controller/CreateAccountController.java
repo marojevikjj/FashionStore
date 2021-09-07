@@ -36,7 +36,7 @@ public class CreateAccountController {
         }
         return "createAccount";
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public String createAccount(@RequestParam String username,
                                 @RequestParam String password,

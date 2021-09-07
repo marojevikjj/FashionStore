@@ -41,7 +41,7 @@ public class UserServiceTest {
         User user = new User("name", "username", "password", Role.ROLE_USER, "email");
         //koga ke se povika userRepostitory save kaj sto argument e bilo koj objekt od klasa user, togas vrati go user objektot gore kreiran
         Mockito.when(this.userRepository.save(Mockito.any(User.class))).thenReturn(user);
-        Mockito.when(this.userRepository.findByEmailIgnoreCase(Mockito.anyString())).thenReturn(Optional.of(user));
+//        Mockito.when(this.userRepository.findByEmailIgnoreCase(Mockito.anyString())).thenReturn(Optional.of(user));
         Mockito.when(this.passwordEncoder.encode(Mockito.anyString())).thenReturn("password");
 
         //inicijalizacija na user servicot
@@ -49,9 +49,8 @@ public class UserServiceTest {
     }
     @Test
     public void testSuccessRegister() {
-        User user = this.service.register("name", "username", "password", "password", Role.ROLE_USER, "test@gmail.com");
+        User user = this.service.register("name", "username", "password", "password", Role.ROLE_USER, "nepostoecki@gmail.com");
         //se verifikuva deka metodot e povikan
-        Mockito.verify(this.service).register("name", "username", "password", "password", Role.ROLE_USER, "test@gmail.com");
         Assert.assertNotNull("User is null", user);
         Assert.assertEquals("name do not mach", "name", user.getName());
         Assert.assertEquals("role do not mach", Role.ROLE_USER, user.getRole());
@@ -130,13 +129,6 @@ public class UserServiceTest {
                 () -> this.service.register("name", "username", "password", "password", Role.ROLE_USER, "wrong"));
     }
 
-    @Test
-    public void testFindByEmailSuccess() {
-
-        User user = new User("name", "username", "password", Role.ROLE_USER, "email");
-
-        Assert.assertEquals(user, service.findByEmail("email"));
-    }
     @Test
     public void testFindByEmailFail() {
         Assert.assertThrows("InvalidArgumentsException expected",
