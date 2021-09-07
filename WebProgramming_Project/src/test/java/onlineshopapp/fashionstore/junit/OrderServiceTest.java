@@ -33,7 +33,6 @@ public class OrderServiceTest {
 
         MockitoAnnotations.initMocks(this);
 
-
         Order order = new Order(new User("name", "username", "password", Role.ROLE_USER, "email"), List.of(new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, 0L)), "name", "surname", "address", "telephone", "city", 0.0, new User("name", "username", "password", Role.ROLE_USER, "email"));
         Mockito.when(orderRepository.save(new Order(new User("name", "username", "password", Role.ROLE_USER, "email"), List.of(new OrderedClothes(new Clothes("name", "description", "image", "image1", "image2", "image3", 0.0, 0.0, 0, 0, 0, 0), 0, "size", 0.0, 0L)), "name", "surname", "address", "telephone", "city", 0.0, new User("name", "username", "password", Role.ROLE_USER, "email")))).thenReturn(order);
 
