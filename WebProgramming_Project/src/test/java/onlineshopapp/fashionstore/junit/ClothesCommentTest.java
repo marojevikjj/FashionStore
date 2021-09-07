@@ -44,10 +44,10 @@ public class ClothesCommentTest {
         Mockito.when(this.clothesCommentRepository.save(Mockito.any(ClothesComment.class)))
                 .thenReturn(clothesComment);
 
-        Mockito.when(this.clothesCommentRepository.findById(Mockito.anyLong()))
+        Mockito.when(this.clothesCommentRepository.findById((long) 1))
                 .thenReturn(java.util.Optional.of(clothesComment));
 
-        Mockito.when(this.clothesCommentRepository.findAllByClothes_Id(Mockito.anyLong()))
+        Mockito.when(this.clothesCommentRepository.findAllByClothes_Id((long) 10))
                 .thenReturn(clothesCommentList);
 
         this.service = Mockito.spy(new ClothesCommentServiceImpl(this.clothesCommentRepository));
@@ -65,7 +65,7 @@ public class ClothesCommentTest {
     @Test
     public void foundCommentsByProductTest() {
 
-        Assert.assertEquals(1, service.findCommentsByProduct(Mockito.anyLong()).size());
+        Assert.assertEquals(1, service.findCommentsByProduct((long) 10).size());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ClothesCommentTest {
         ClothesComment cc = new ClothesComment();
         cc.setId((long) 1);
 
-        Assert.assertEquals(cc, service.findById(Mockito.anyLong()));
+        Assert.assertEquals(cc, service.findById((long) 1));
     }
 
     @Test
