@@ -32,7 +32,7 @@ public class VoucherTest {
         Mockito.when(this.voucherRepository.save(Mockito.any(Voucher.class)))
                 .thenReturn(v);
 
-        Mockito.when(this.voucherRepository.findById(Mockito.anyLong()))
+        Mockito.when(this.voucherRepository.findById((long) 100))
                 .thenReturn(Optional.of(v));
 
         this.service = Mockito.spy(new VoucherServiceImpl(this.voucherRepository));
@@ -44,7 +44,7 @@ public class VoucherTest {
         Voucher v = new Voucher();
         v.setCode((long) 100);
 
-        Assert.assertEquals(Optional.of(v), service.findById(Mockito.anyLong()));
+        Assert.assertEquals(Optional.of(v), service.findById((long) 100));
     }
 
     @Test
