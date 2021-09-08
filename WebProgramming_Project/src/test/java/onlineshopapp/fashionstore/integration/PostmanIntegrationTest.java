@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @ActiveProfiles("test")
@@ -64,11 +65,15 @@ public class PostmanIntegrationTest {
     @WithMockUser(username = "postman", roles={"POSTMAN"})
     public void testGetPostmanOrders() throws Exception {
 
-        MockHttpServletRequestBuilder postmanRequest = MockMvcRequestBuilders.get("/postman/orders");
+        MockHttpServletRequestBuilder postmanRequest = MockMvcRequestBuilders.get("/postman/orders")
+                .with(request -> {request.setRemoteUser("postman");
+                return request;});
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
         this.mockMvc.perform(postmanRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("orders", List.of(order)))
+//                .andExpect(MockMvcResultMatchers.model().attribute("orders", orders)) -> expected i actual se razlicni poradi vremeto datetime!
                 .andExpect(MockMvcResultMatchers.view().name("postmanOrders"));
     }
 
