@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -47,7 +48,7 @@ public class CalendarIntegrationTest {
         String user = "user";
         String admin = "admin";
 
-        userService.register(user, user, user, user, Role.ROLE_USER, "user@gmai.com");
+        userService.register(user, user, user, user, Role.ROLE_USER, "user@gmail.com");
         userService.register(admin, admin, admin, admin, Role.ROLE_ADMIN, "admin@gmail.com");
 
     }
@@ -74,17 +75,13 @@ public class CalendarIntegrationTest {
         MockHttpServletRequestBuilder events = MockMvcRequestBuilders.get("/calendar");
         this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.view().name("calendar")).andExpect(MockMvcResultMatchers.status().isOk());
     }
+
     @Test
+    @WithMockUser(username = "admin", roles={"ADMIN"})
     public void testGetAdminCalendar() throws Exception {
         MockHttpServletRequestBuilder events = MockMvcRequestBuilders.get("/admin-calendar");
         this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.view().name("admin-calendar"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-    @Test
-    public void testGetEventList() throws Exception {
-        MockHttpServletRequestBuilder events = MockMvcRequestBuilders.get("/eventlist");
-        this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.view().name("events"))
-                .andExpect(MockMvcResultMatchers.model().attributeExists("events"));
     }
 
 

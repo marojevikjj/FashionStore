@@ -63,15 +63,16 @@ public class LogInIntegrationTest {
 
     @Test
     public void testSuccessLoginUser() throws Exception {
+        userService.register("adminnew","adminnew","adminnew","adminnew",Role.ROLE_ADMIN,"adminnew@gmail.com");
+
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.addParameter("username","admin");
-        request.addParameter("password","admin");
+        request.addParameter("username","adminnew");
+        request.addParameter("password","adminnew");
 
 
         MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/login").requestAttr("request",request);
         this.mockMvc.perform(productRequest).andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/products"));
-
 
     }
 
