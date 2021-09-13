@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -50,13 +51,16 @@ public class CreateAccountIntegrationTest {
     }
     //Create account - getCreateAccountPage, createAccount
     //ne rabotat tie sto se so preauthorize admin
+
     @Test
+    @WithMockUser(username = "admin", roles={"ADMIN"})
     public void testGetCreateAccountPage() throws Exception {
         MockHttpServletRequestBuilder events = MockMvcRequestBuilders.get("/create-account");
         this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.view().name("createAccount"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
     @Test
+    @WithMockUser(username = "admin", roles={"ADMIN"})
     public void testGetCreateAccountPageError() throws Exception {
         MockHttpServletRequestBuilder events = MockMvcRequestBuilders.get("/create-account").param("error", "error");
         this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.view().name("createAccount"))
@@ -66,33 +70,27 @@ public class CreateAccountIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
     @Test
+    @WithMockUser(username = "admin", roles={"ADMIN"})
     public void testCreateAccountFail() throws Exception {
         MockHttpServletRequestBuilder events = MockMvcRequestBuilders.post("/create-account").param("error", "error");
-//        this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(MockMvcResultMatchers.redirectedUrl("redirect:/create-account?error="));
-
+        this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(MockMvcResultMatchers.redirectedUrl("redirect:/create-account?error="));
 
     }
     @Test
+    @WithMockUser(username = "admin", roles={"ADMIN"})
     public void testCreateAccount() throws Exception {
-//        @RequestParam String username,
-//        @RequestParam String password,
-//        @RequestParam String repeatedPassword,
-//        @RequestParam String name,
-//        @RequestParam String email,
-//        @RequestParam Role role,
-//        @RequestParam(required = false) String city,
         MockHttpServletRequestBuilder events = MockMvcRequestBuilders.post("/create-account")
                 .param("username","username").param("password","password")
-                .param("repeatedPassword","password").param("name","name").requestAttr("role",Role.ROLE_USER);
+                .param("repeatedPassword","password").param("name","name").param("email","j@gmail.com").param("role",Role.ROLE_USER.toString());
 
 
-//        this.mockMvc.perform(events)
-//                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.view().name("createAccount"))
-//                .andExpect(MockMvcResultMatchers.model().attributeExists("success"))
-//                .andExpect(MockMvcResultMatchers.model().attribute("success", "true"))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-        this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(MockMvcResultMatchers.redirectedUrl("redirect:/create-account?error="));
+        this.mockMvc.perform(events)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.view().name("createAccount"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("success"))
+                .andExpect(MockMvcResultMatchers.model().attribute("success", true))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+//        this.mockMvc.perform(events).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(MockMvcResultMatchers.redirectedUrl("redirect:/create-account?error="));
 
     }
 
