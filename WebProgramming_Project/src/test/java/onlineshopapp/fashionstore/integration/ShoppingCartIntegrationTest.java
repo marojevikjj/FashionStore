@@ -71,7 +71,6 @@ public class ShoppingCartIntegrationTest {
 
 
     @Test
-    @WithMockUser(username = "user")
     public void testGetShoppingCartPage() throws Exception {
 
         MockHttpServletRequestBuilder shoppingCartRequest = MockMvcRequestBuilders.get("/shoppingCart")
@@ -91,7 +90,6 @@ public class ShoppingCartIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "userWithoutCart")
     public void testGetShoppingCartPageNewCart() throws Exception {
 
         MockHttpServletRequestBuilder shoppingCartRequest = MockMvcRequestBuilders.get("/shoppingCart")
@@ -108,7 +106,6 @@ public class ShoppingCartIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "user", roles = "USER")
     public void testAddProductToShoppingCart() throws Exception {
 
         MockHttpServletRequestBuilder shoppingCartRequest = MockMvcRequestBuilders.post("/shoppingCart/add/" + clothes.getId())
@@ -123,7 +120,6 @@ public class ShoppingCartIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "user", roles = "USER")
     public void testAddProductToShoppingCartError() throws Exception {
 
         MockHttpServletRequestBuilder shoppingCartRequest = MockMvcRequestBuilders.post("/shoppingCart/add/" + clothes.getId())
@@ -151,7 +147,6 @@ public class ShoppingCartIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     public void testDeleteProductFromShoppingCart() throws Exception {
 
         MockHttpServletRequestBuilder shoppingCartRequest = MockMvcRequestBuilders.post("/shoppingCart/delete/" + orderedClothes.getId())
