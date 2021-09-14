@@ -73,7 +73,6 @@ public class PostmanIntegrationTest {
         this.mockMvc.perform(postmanRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.model().attribute("orders", orders)) -> expected i actual se razlicni poradi vremeto datetime!
                 .andExpect(MockMvcResultMatchers.view().name("postmanOrders"));
     }
 
@@ -88,4 +87,6 @@ public class PostmanIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/postman/orders"));
     }
+
+
 }
