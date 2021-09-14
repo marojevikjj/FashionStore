@@ -40,7 +40,6 @@ public class OrderController {
     private final OrderService orderService;
     private final PostmanOrderSerivce postmanOrderSerivce;
     private final ClothesService clothesService;
-//    private PdfServiceImpl pdfService;
 
     public OrderController(UserService userService, ShoppingCartService shoppingCartService, UserVoucherService userVoucherService, VoucherService voucherService, OrderService orderService, PostmanOrderSerivce postmanOrderSerivce, ClothesService clothesService) {
         this.userService = userService;
@@ -50,7 +49,6 @@ public class OrderController {
         this.orderService = orderService;
         this.postmanOrderSerivce = postmanOrderSerivce;
         this.clothesService = clothesService;
-//        this.pdfService = pdfService;
     }
 
 
@@ -82,11 +80,6 @@ public class OrderController {
             if(po.getCount() < p.getCount())
                 p = po;
         Order o = this.orderService.createOrder(name, surname, address, telephone, city, discount, (User) this.userService.loadUserByUsername(username), shoppingCart.getOrderedClothes(), p.getUser());
-
-//        List<PdfOrder> pdfOrders = new ArrayList<PdfOrder>(0);
-//        for(OrderedClothes oc : o.getOrderedClothes()){
-//            pdfOrders.add(new PdfOrder(oc.getQuantity(), oc.getPrice(), oc.getSize(), p.getUser().getName(), p.getUser().getEmail(), oc.getClothes().getName()));
-//        }
 
         this.shoppingCartService.deleteOrderedClothes(shoppingCart);
         List<Order> orders = this.orderService.findOrdersByUser((User) this.userService.loadUserByUsername(username));
