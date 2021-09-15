@@ -81,6 +81,9 @@ public class ProductsIntegrationTest {
             clothes2 = new ArrayList<>();
             clothes2.add(product1);
             clothes2.add(product2);
+            ClothesComment clothesComment = clothesCommentService.addNewComment(user, product1, "comment 1");
+            clothesComment.setId((long) 10);
+            clothesGradeService.addGrade(user, product1, 5.0);
             comments = clothesCommentService.findCommentsByProduct((long)1);
             grade = clothesGradeService.findByUserAndClothes(user, product1);
 
@@ -157,8 +160,8 @@ public class ProductsIntegrationTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.model().attributeExists("comments"))
                 .andExpect(MockMvcResultMatchers.model().attribute("comments", comments))
-                //.andExpect(MockMvcResultMatchers.model().attributeExists("grade"))
-                //.andExpect(MockMvcResultMatchers.model().attribute("grade", grade))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("grade"))
+                .andExpect(MockMvcResultMatchers.model().attribute("grade", grade.getGrade()))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("product"))
                 .andExpect(MockMvcResultMatchers.model().attribute("product", product1))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("produkti"))
@@ -207,7 +210,6 @@ public class ProductsIntegrationTest {
                 .param("quantitySizeS", "10").param("quantitySizeM", "10")
                 .param("quantitySizeL", "10").param("quantitySizeXL", "10");
 
-        clothesService.create("test","test","test","test","test","test",0.0,0.0,10,10,10,10);
         this.mockMvc.perform(productRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
@@ -227,7 +229,6 @@ public class ProductsIntegrationTest {
                 .param("quantitySizeS", "10").param("quantitySizeM", "10")
                 .param("quantitySizeL", "10").param("quantitySizeXL", "10");
 
-        clothesService.update(product1.getId(), "name","description","image","image1","image2","image3",0.0,0.0,10,10,10,10);
         this.mockMvc.perform(productRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
@@ -257,7 +258,6 @@ public class ProductsIntegrationTest {
                 .with(request -> {request.setRemoteUser("user");
                     return request;});
 
-        clothesCommentService.addNewComment(user, product1, "comment");
         this.mockMvc.perform(productRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
@@ -269,7 +269,7 @@ public class ProductsIntegrationTest {
     @WithMockUser(username = "user")
     public void testGradeProduct() throws Exception {
 
-        MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/products/" + product1.getId() + "/grade/")
+        MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/products/" + product1.getId() + "/grade")
                 .param("grade", "5.0")
                 .with(request -> {request.setRemoteUser("user");
                     return request;});
@@ -285,16 +285,14 @@ public class ProductsIntegrationTest {
     @WithMockUser(username = "user")
     public void testLikeComment() throws Exception {
 
-        MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/products/" + product1.getId() + "/commentLike/")
+        MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/products/" + product1.getId() + "/commentLike")
                 .with(request -> {request.setRemoteUser("user");
                     return request;});
-
-        ClothesComment clothesComment = this.clothesCommentService.findById((long)1);
 
         this.mockMvc.perform(productRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/" + clothesComment.getClothes().getId()));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/products/" + product1.getId()));
 
     }
 
@@ -302,7 +300,7 @@ public class ProductsIntegrationTest {
     @WithMockUser(username = "user")
     public void testDislikeComment() throws Exception {
 
-        MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/products/" + product1.getId() + "/commentDislike/")
+        MockHttpServletRequestBuilder productRequest = MockMvcRequestBuilders.post("/products/" + product1.getId() + "/commentDislike")
                 .with(request -> {request.setRemoteUser("user");
                     return request;});
 
