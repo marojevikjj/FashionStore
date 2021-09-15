@@ -2,6 +2,7 @@ package onlineshopapp.fashionstore.selenium;
 
 import onlineshopapp.fashionstore.model.Clothes;
 import onlineshopapp.fashionstore.model.User;
+import onlineshopapp.fashionstore.model.enumerations.Role;
 import onlineshopapp.fashionstore.service.ClothesService;
 import onlineshopapp.fashionstore.service.UserService;
 import org.junit.jupiter.api.AfterEach;
@@ -50,18 +51,20 @@ public class UserScenarioTest {
     }
     private void initData() {
         if (!dataInitialized) {
-           product = this.clothesService.create("test", "test", "test","test","test","test",0.0,0.0,10,10,10,10);
-           product2 = this.clothesService.create("test", "test", "test","test","test","test",0.0,0.0,10,10,10,10);
-           dataInitialized = true;
+            regularUser = userService.register("user", "user", "user", "user", Role.ROLE_USER, "user@gmail.com");
+            product = this.clothesService.create("test", "test", "test","test","test","test",0.0,0.0,10,10,10,10);
+            product2 = this.clothesService.create("test", "test", "test","test","test","test",0.0,0.0,10,10,10,10);
+            dataInitialized = true;
         }
     }
     @Test
     @WithMockUser(username = "user")
     public void testScenario() throws Exception {
+
         ClothesPage clothesPage = ClothesPage.to(this.driver);
         clothesPage.assertElemts(2);
-//        clothesPage.assertSortByDate();
-//        clothesPage.assertSortByRating();
+        clothesPage.assertSortByDate();
+        clothesPage.assertSortByRating();
         clothesPage.assertSortName();
         clothesPage.assertSortPrice();
     }
