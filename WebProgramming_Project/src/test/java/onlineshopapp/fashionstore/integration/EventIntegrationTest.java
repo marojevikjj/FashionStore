@@ -1,18 +1,24 @@
 package onlineshopapp.fashionstore.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import onlineshopapp.fashionstore.model.Event;
 import onlineshopapp.fashionstore.model.User;
 import onlineshopapp.fashionstore.model.enumerations.Role;
 import onlineshopapp.fashionstore.service.EventService;
 import onlineshopapp.fashionstore.service.UserService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -39,6 +45,8 @@ public class EventIntegrationTest {
     UserService userService;
     @Autowired
     EventService eventService;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private static boolean dataInitialized = false;
     private static User admin;
@@ -56,48 +64,26 @@ public class EventIntegrationTest {
     public static List<Event> eventsInRange;
 
     @BeforeEach
-    public void setup(WebApplicationContext wac) {
+    public void setup(WebApplicationContext wac) throws ParseException {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         initData();
     }
 
-    public void initData() {
+    public void initData() throws ParseException {
 
         if(!dataInitialized) {
 
             admin = userService.register("admin", "admin", "admin", "admin", Role.ROLE_ADMIN, "adminadmin@gmail.com");
             user = userService.register("user", "user", "user", "user", Role.ROLE_USER, "useruser@gmail.com");
-
-
-            event1= new Event("test", "test", null, null, user);
-            event2= new Event("test", "test", null, null, user);
-
-            events = new ArrayList<>();
-            events.add(event1);
-            events.add(event2);
-
-            startDate = null;
-            endDate = null;
             start = "2020-06-08";
             end = "2021-06-08";
             inputDateFormat = new SimpleDateFormat("yyy-MM-dd");
-            try {
-                startDate = inputDateFormat.parse(start);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                endDate = inputDateFormat.parse(end);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            startDateTime =LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
-            endDateTime =LocalDateTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
-
-            eventsInRange = new ArrayList<>();
-            eventsInRange = eventService.findAllByDateBetween(startDateTime, endDateTime);
+            event1 = new Event("test", "test", LocalDateTime.ofInstant(inputDateFormat.parse(start).toInstant(),
+                    ZoneId.systemDefault()), LocalDateTime.ofInstant(inputDateFormat.parse(end).toInstant(),
+                    ZoneId.systemDefault()), user);
+            event1.setId((long) 1);
+            eventService.save(event1);
 
             dataInitialized = true;
         }
@@ -105,26 +91,31 @@ public class EventIntegrationTest {
 
     @Test
     public void testAllEvents() throws Exception {
-        MockHttpServletRequestBuilder eventRequest = MockMvcRequestBuilders.get("/allevents/");
+        MockHttpServletRequestBuilder eventRequest = MockMvcRequestBuilders.get("/allevents");
 
-
+        List<Event> events = new ArrayList<>();
+        events.add(event1);
         this.mockMvc.perform(eventRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
-             //   .andExpect(MockMvcResultMatchers.content().contentType(events));
+//                .andExpect(MockMvcResultMatchers.content().contentType((MediaType) events));
+//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value((long) 1))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("test"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("test"));
     }
 
     @Test
     @WithMockUser(username = "admin", roles={"ADMIN"})
     public void testAddEvent() throws Exception {
-        MockHttpServletRequestBuilder eventRequest = MockMvcRequestBuilders.post("/event/")
-                .param("Event", "event");
+        MockHttpServletRequestBuilder eventRequest = MockMvcRequestBuilders.post("/event")
+                .param("Event", String.valueOf(event1));
 
 
         this.mockMvc.perform(eventRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
-               //  .andExpect(MockMvcResultMatchers.content().contentType());
+//          .andExpect(MockMvcResultMatchers.content().contentType());
     }
 
 
