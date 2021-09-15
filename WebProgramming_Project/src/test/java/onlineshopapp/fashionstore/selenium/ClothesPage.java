@@ -51,15 +51,16 @@ public class ClothesPage extends AbstractPage {
         List<WebElement> clothesTmp = driver.findElements(By.className("col-4"));
         Assert.assertNotEquals(clothesTmp,clothes);
     }
-//    public void assertSortByDate() {
-//        byDate.click();
-//        List<WebElement> clothesTmp = driver.findElements(By.className("col-4"));
-//        Assert.assertNotEquals(clothesTmp,clothes);
-//    }
-//    public void assertSortByRating() {
-//        byRating.click();
-//        List<WebElement> clothesTmp = driver.findElements(By.className("col-4"));
-//        Assert.assertNotEquals(clothesTmp,clothes);
-//    }
+    public void assertSortByDate() {
+        byDate.click();
+        List<WebElement> clothesTmp = driver.findElements(By.className("col-4"));
+        Assert.assertNotEquals(clothesTmp,clothes);
+    }
+    public void assertSortByRating() {
+        byRating.click();
+        List<WebElement> clothesTmp = driver.findElements(By.className("col-4"));
+        Assert.assertNotEquals(clothesTmp,clothes);
+    }
+
 }
 
