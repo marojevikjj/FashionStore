@@ -90,10 +90,10 @@
         <li class="dropdown">
             <div><i class="fas fa-chevron-circle-down"  style="font-size: 30px;color: #b3017de0;"></i></div>
             <div class="dropdown-content">
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=dateCreated&sortDir=desc' }">Latest</a>
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=name&sortDir=asc'}">Name</a>
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=asc'}">Price</a>
-                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=grade&sortDir=desc'}">Rating</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=dateCreated&sortDir=desc' }" id="latest-sort" class="sort">Latest</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=name&sortDir=asc'}" id="name-sort" class="sort">Name</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=asc'}" id="price-sort" class="sort">Price</a>
+                <a th:href="@{'/products/page/' + ${currentPage} + '?sortField=grade&sortDir=desc'}" id="rating-sort" class="sort">Rating</a>
 
         </div>
         </li>
