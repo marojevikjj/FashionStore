@@ -11,6 +11,7 @@
     <groupId>OnlineShopApp</groupId>
     <artifactId>fashionstore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>fashionstore</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -59,6 +60,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
             <optional>true</optional>
         </dependency>
         <dependency>

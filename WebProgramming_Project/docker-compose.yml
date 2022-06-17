@@ -1,5 +1,12 @@
 version: "3"
 services:
+  fashionStore:
+    image: fashionstore-0.0.1-SNAPSHOT.jar
+    build:
+      context: ./spring-boot-fashionstore
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
   #  Create a service named db.
   db:
     #   Use the Docker Image postgres. This will pull the newest release.
@@ -18,5 +25,10 @@ services:
     #   I used the name postgres-data but you can changed it to something else.
     volumes:
       - postgres-data:/var/lib/postgresql/data
-volumes:
-  postgres-data:
+#volumes:
+#  postgres-data:
+  prometheus:
+    image: prom/prometheus:v2.21.0
+    ports:
+      - 9000:9090
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml

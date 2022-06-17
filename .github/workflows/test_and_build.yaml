@@ -1,0 +1,31 @@
+name: Fashion store
+on:
+  pull_request:
+  types:
+    - opened
+    - reopened
+    - synchronize
+    - closed
+  branches:
+    - main
+jobs:
+  test_api:
+    name: Test commited changes - api
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+      - uses: actions/checkout@v3
